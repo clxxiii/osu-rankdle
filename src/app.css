@@ -1,0 +1,9 @@
+@font-face {
+    font-family: Quicksand;
+    src: url(./lib/Quicksand-VariableFont_wght.ttf);
+}
+body {
+    background-color: rgb(29, 29, 29);
+    color: white;
+    font-family: 'Quicksand'
+}
