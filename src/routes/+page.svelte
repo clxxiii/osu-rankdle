@@ -1,18 +1,27 @@
 <script>
-	import Slider from '$lib/components/Slider.svelte';
+	import Input from '$lib/components/Input.svelte';
+	import Video from '$lib/components/Video.svelte';
 	import '../app.css';
 </script>
 
-<h1>osu! rankdle</h1>
+<svelte:head>
+	<title>osu! Rankdle</title>
+</svelte:head>
 
-<iframe
-	width="560"
-	height="315"
-	src="https://www.youtube.com/embed/-PXeI0gRaaw"
-	title="YouTube video player"
-	frameborder="0"
-	allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-	allowfullscreen
-/>
+<div class="page">
+	<h1>osu! rankdle</h1>
+	<Video video_id="-PXeI0gRaaw" />
+	<Input />
+</div>
 
-<Slider />
+<style>
+	h1 {
+		color: var(--pink);
+	}
+	.page {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+</style>

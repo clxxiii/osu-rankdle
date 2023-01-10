@@ -7,7 +7,7 @@
 	let sliderMin = 1;
 	let sliderMax = 2000000;
 
-	let output: any;
+	let textbox: any;
 	let input: any;
 
 	// These are a magic function that
@@ -26,22 +26,22 @@
 
 	function sliderInput() {
 		currentTextInput = '';
-		output.textContent = '#' + exponential(this.value).toLocaleString();
+		textbox.textContent = '#' + exponential(this.value).toLocaleString();
 		moveBox();
 	}
 
 	function moveBox() {
 		// width = slider length - thumb size
-		output.style.opacity = 1;
+		textbox.style.opacity = 1;
 		let width = input.offsetWidth - 200;
 		let movePercent = input.value / sliderMax;
-		output.style.transform = `translate(${movePercent * width}px)`;
+		textbox.style.transform = `translate(${movePercent * width}px)`;
 	}
 
 	let currentTextInput = '';
 	if (browser) {
-		document.addEventListener('mousedown', () => (output.style.transition = '0s ease'));
-		document.addEventListener('mouseup', () => (output.style.transition = '0.15s ease'));
+		document.addEventListener('mousedown', () => (textbox.style.transition = '0s ease'));
+		document.addEventListener('mouseup', () => (textbox.style.transition = '0.15s ease'));
 		document.addEventListener('keydown', (ev) => {
 			let old = currentTextInput;
 			if (ev.key == 'Backspace') {
@@ -67,9 +67,9 @@
 			if (currentTextInput == 'NaN') currentTextInput = '';
 
 			if (currentTextInput != '') {
-				output.textContent = '#' + parseInt(currentTextInput).toLocaleString();
+				textbox.textContent = '#' + parseInt(currentTextInput).toLocaleString();
 			} else {
-				output.textContent = 'Type to guess';
+				textbox.textContent = 'Type to guess';
 			}
 			input.value = inverse(parseInt(currentTextInput));
 			moveBox();
@@ -87,10 +87,15 @@
 		max={sliderMax}
 	/>
 	<div class="body" />
-	<div class="textbox" bind:this={output}>Type to guess</div>
+	<div class="textbox" bind:this={textbox}>Type to guess</div>
 </div>
 
 <style>
+	.slider {
+		position: relative;
+		z-index: 0;
+		margin: 9px;
+	}
 	input[type='range'] {
 		appearance: none;
 		outline: none;
@@ -98,29 +103,17 @@
 		max-width: 1000px;
 		width: 95vw;
 		height: 50px;
+		z-index: 1;
 	}
 	input[type='range']::-webkit-slider-runnable-track {
-		/* background: rgb(92, 92, 92); */
 		height: 10px;
-		/* border-radius: 1000px; */
 	}
 
 	input[type='range']::-webkit-slider-thumb {
 		/* color: white; */
 		appearance: none;
-		/* margin-top: -20px; 
-		background-color: #3d3d3d;
-		border-radius: 5px;
-		border: solid 3px rgb(119, 119, 119); */
 		height: 50px;
 		width: 200px;
-	}
-	.slider {
-		position: relative;
-		z-index: 0;
-	}
-	.slider input {
-		z-index: 1;
 	}
 	.slider .body {
 		position: absolute;

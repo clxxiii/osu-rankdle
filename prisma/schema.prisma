@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Video {
+  id         String @id @default(uuid())
+  youtube_id String
+  shown_rank Int
+  user       User   @relation(fields: [user_id], references: [id])
+  user_id    Int
+}
+
+model User {
+  id                Int      @id
+  username          String
+  country_code      String
+  rank              Int
+  last_stats_update DateTime @default(now())
+  videos            Video[]
+  stats             Stats?   @relation(fields: [stats_id], references: [id])
+  stats_id          String?  @unique
+}
+
+model Session {
+  id       String @id @default(uuid())
+  stats    Stats  @relation(fields: [stats_id], references: [id])
+  stats_id String @unique
+}
+
+model Stats {
+  id             String   @id @default(uuid())
+  streak         Int
+  longest_streak Int
+  highest_score  Int
+  played_today   Boolean
+  user           User?
+  session        Session?
+}

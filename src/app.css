@@ -1,9 +1,18 @@
+:root {
+    --pink: #ff99c9;
+    --lavender: #c1bddb;
+    --sky: #a2c7e5;
+    --teal: #58fcec;
+    --dark: #303a2b;
+    --background: rgb(27,27,27)
+}
 @font-face {
     font-family: Quicksand;
-    src: url(./lib/Quicksand-VariableFont_wght.ttf);
+    src: url(./lib/fonts/Quicksand-VariableFont_wght.ttf);
 }
 body {
-    background-color: rgb(29, 29, 29);
+    margin: 0;
+    background-color: var(--background);
     color: white;
-    font-family: 'Quicksand'
+    font-family: 'Quicksand';
 }
