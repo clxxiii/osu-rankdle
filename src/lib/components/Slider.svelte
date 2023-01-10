@@ -100,9 +100,9 @@
 		height: 50px;
 	}
 	input[type='range']::-webkit-slider-runnable-track {
-		background: rgb(92, 92, 92);
+		/* background: rgb(92, 92, 92); */
 		height: 10px;
-		border-radius: 1000px;
+		/* border-radius: 1000px; */
 	}
 
 	input[type='range']::-webkit-slider-thumb {
