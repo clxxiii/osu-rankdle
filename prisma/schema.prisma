@@ -11,11 +11,14 @@ datasource db {
 }
 
 model Video {
-  id         String @id @default(uuid())
-  youtube_id String
-  shown_rank Int
-  user       User   @relation(fields: [user_id], references: [id])
-  user_id    Int
+  id                String         @id @default(uuid())
+  youtube_id        String
+  shown_rank        Int
+  user              User           @relation(fields: [user_id], references: [id])
+  user_id           Int
+  current_video_for Stats[]
+  watched_by        VideoWatched[]
+  Guess             Guess[]
 }
 
 model User {
@@ -36,11 +39,47 @@ model Session {
 }
 
 model Stats {
-  id             String   @id @default(uuid())
-  streak         Int
-  longest_streak Int
-  highest_score  Int
-  played_today   Boolean
-  user           User?
-  session        Session?
+  id               String         @id @default(uuid())
+  streak           Int
+  longest_streak   Int
+  highest_score    Int
+  played_today     Boolean
+  user             User?
+  hp               Int            @default(2000)
+  session          Session?
+  watched          VideoWatched[]
+  current_video    Video?         @relation(fields: [current_video_id], references: [id])
+  current_video_id String?
+  history          UserDay[]
+}
+
+model UserDay {
+  stats    Stats   @relation(fields: [stats_id], references: [id])
+  stats_id String
+  day      Int
+  guesses  Guess[]
+
+  @@id([day, stats_id])
+}
+
+model Guess {
+  on_day   UserDay @relation(fields: [day, stats_id], references: [day, stats_id])
+  video    Video   @relation(fields: [video_id], references: [id])
+  input    Int
+  penalty  Int
+  day      Int
+  stats_id String
+  video_id String
+
+  @@id([day, video_id])
+}
+
+// Intermediary relations
+model VideoWatched {
+  video    Video  @relation(fields: [video_id], references: [id])
+  stats    Stats  @relation(fields: [stats_id], references: [id])
+  video_id String
+  stats_id String
+
+  @@id([video_id, stats_id])
 }

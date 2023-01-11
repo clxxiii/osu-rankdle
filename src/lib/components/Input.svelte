@@ -1,28 +1,14 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
+	import { sliderMin, sliderMax, exponential, inverse } from '$lib/exponentials';
 
 	onMount(moveBox);
-
-	let sliderMin = 1;
-	let sliderMax = 2000000;
 
 	let textbox: any;
 	let input: any;
 
-	// These are a magic function that
-	// takes the input slider position
-	// and makes it more natural
-	let exponential = (x: number) => {
-		if (x == sliderMax) return sliderMax;
-		return Math.round(Math.pow(1.2053, Math.pow(x, 0.3)));
-	};
-
-	let inverse = (x: number) => {
-		if (x == sliderMax) return sliderMax;
-		let sub = Math.log(x) / Math.log(1.2053);
-		return Math.pow(sub, 3) * Math.pow(sub, 1 / 3);
-	};
+	export const getValue = () => exponential(input.value);
 
 	function sliderInput() {
 		currentTextInput = '';
