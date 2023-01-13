@@ -1,11 +1,21 @@
 <script lang="ts">
 	import heart from '$lib/icons/heart.svg';
 	import heartbreak from '$lib/icons/heartbreak.svg';
-
+	import type { User } from '@prisma/client';
+	type Result = {
+		answer: number;
+		guess: number;
+		penalty: number;
+		user: User;
+	};
 	let maxHP = 2000;
 	let bar: any;
+	export let inputbar: any;
 	let hpbar: any;
 	let hptextbox: any;
+
+	const sleep = async (timeMS: number) =>
+		await new Promise((resolve) => setTimeout(resolve, timeMS));
 
 	export let hp = maxHP;
 	export const set = (num: number) => {
@@ -23,6 +33,16 @@
 		set(hp - num);
 		bar.style.animation = 'hit 0.3s linear';
 		setTimeout(() => (bar.style.animation = ''), 1000);
+	};
+
+	export const animate = async (result: Result) => {
+		inputbar.disableInput();
+		inputbar.collapse();
+		await sleep(750);
+		inputbar.showAnswerLine(result.answer);
+		await sleep(750);
+		inputbar.showPenaltyBox(result.answer, result.penalty);
+		hit(result.penalty);
 	};
 </script>
 

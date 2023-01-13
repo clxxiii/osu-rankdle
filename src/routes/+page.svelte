@@ -6,10 +6,10 @@
 	import '../app.css';
 	export let data;
 
-	let input;
+	let inputbar;
 	let hpbar;
 	const clickFunction = () => {
-		return input.getValue();
+		return inputbar.getValue();
 	};
 </script>
 
@@ -20,9 +20,9 @@
 <div class="page">
 	<h1>osu! rankdle</h1>
 	<Video video_id={data.video} />
-	<Input bind:this={input} />
+	<Input bind:this={inputbar} />
 	<LockIn {hpbar} getValueFunction={clickFunction} />
-	<HpBar hp={data.session.stats.hp} bind:this={hpbar} />
+	<HpBar {inputbar} hp={data.session.stats.hp} bind:this={hpbar} />
 </div>
 
 <style>

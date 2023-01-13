@@ -6,9 +6,68 @@
 	onMount(moveBox);
 
 	let textbox: any;
+	let guessbox: any;
 	let input: any;
+	let answerline: any;
+	let answerlinetext: any;
+	let penaltybox: any;
+	let penaltyboxtext: any;
+
+	let inputDisabled: boolean;
 
 	export const getValue = () => exponential(input.value);
+	export const disableInput = () => {
+		inputDisabled = true;
+		input.style.pointerEvents = 'none';
+	};
+	export const enableInput = () => {
+		inputDisabled = false;
+		input.style.pointerEvents = 'all';
+	};
+
+	// Line up guess line so answer line will fall right on top of it
+	// if exact
+	export function collapse() {
+		let inputWidth = input.offsetWidth;
+		// I know it looks stupid, this is the easiest way to account
+		// for calculating the width of the slider head.
+		let movePercent = inverse(exponential(input.value)) / sliderMax;
+		let currentTransform = movePercent * inputWidth;
+		textbox.textContent = '';
+		textbox.style.transform = `translate(${currentTransform}px)`;
+		textbox.style.transition = '0.5s ease';
+		textbox.style.width = '0px';
+		guessbox.style.opacity = '1';
+		guessbox.style.transform = `translate(${currentTransform - 100}px)`;
+		guessbox.textContent = '#' + exponential(input.value).toLocaleString();
+	}
+
+	export function showAnswerLine(answer: number) {
+		let width = input.offsetWidth;
+		let movePercent = inverse(answer) / sliderMax;
+		answerline.style.opacity = '1';
+		answerline.style.transform = `translate(${movePercent * width + 2}px, 3px)`;
+		answerlinetext.textContent = '#' + answer.toLocaleString();
+	}
+
+	export function showPenaltyBox(answer: number, penalty: number) {
+		console.log({ answer, penalty });
+		let inputWidth = input.offsetWidth;
+		let answerPosition = (inverse(answer) / sliderMax) * inputWidth + 2;
+		let guessPosition = (inverse(exponential(input.value)) / sliderMax) * inputWidth;
+
+		let boxWidth = Math.abs(answerPosition - guessPosition);
+		console.log({ answerPosition, guessPosition, boxWidth });
+		if (answerPosition > guessPosition) {
+			penaltybox.style.left = `${guessPosition + 3}px`;
+		} else {
+			boxWidth += 3;
+			penaltybox.style.left = `${answerPosition}px`;
+		}
+		penaltybox.style.width = `${boxWidth}px`;
+		penaltybox.style.height = '56px';
+		penaltybox.textContent = `-${penalty}`;
+	}
 
 	function sliderInput() {
 		currentTextInput = '';
@@ -29,6 +88,7 @@
 		document.addEventListener('mousedown', () => (textbox.style.transition = '0s ease'));
 		document.addEventListener('mouseup', () => (textbox.style.transition = '0.15s ease'));
 		document.addEventListener('keydown', (ev) => {
+			if (inputDisabled) return;
 			let old = currentTextInput;
 			if (ev.key == 'Backspace') {
 				currentTextInput = currentTextInput.substring(0, currentTextInput.length - 1);
@@ -74,13 +134,20 @@
 	/>
 	<div class="body" />
 	<div class="textbox" bind:this={textbox}>Type to guess</div>
+	<div class="guessbox" bind:this={guessbox}>Type to guess</div>
+	<div class="answerline" bind:this={answerline}>
+		<div bind:this={answerlinetext} class="text" />
+	</div>
+	<div bind:this={penaltybox} class="penaltybox">
+		<div bind:this={penaltyboxtext} class="text" />
+	</div>
 </div>
 
 <style>
 	.slider {
 		position: relative;
 		z-index: 0;
-		margin: 9px;
+		margin: 30px;
 	}
 	input[type='range'] {
 		appearance: none;
@@ -113,21 +180,56 @@
 		height: 56px;
 		z-index: 0;
 	}
-	.slider .textbox {
+	.slider .textbox,
+	.guessbox {
 		position: absolute;
-		top: 0;
+		bottom: 0px;
 		transition: 0.15s ease;
 		opacity: 0;
-		height: 38px;
-		width: 186px;
 		display: grid;
-		place-items: center;
-		pointer-events: none;
 		background-color: #3d3d3d;
 		border-radius: 5px;
 		border: solid 3px rgb(119, 119, 119);
 		height: 50px;
+		text-align: center;
+		place-items: center;
+		pointer-events: none;
 		width: 200px;
 		z-index: 2;
+	}
+	.guessbox {
+		bottom: -5px;
+		opacity: 0;
+		transition: 0.5s ease;
+		background-color: none;
+		border: 0;
+		height: 0;
+	}
+	.answerline {
+		position: absolute;
+		top: 0;
+		opacity: 0;
+		width: 0;
+		transform: translateY(3px);
+		transition: 0.5s ease;
+		height: 50px;
+		border-left: white dashed 2px;
+		z-index: 3;
+	}
+	.answerline .text {
+		width: 200px;
+		text-align: center;
+		transform: translate(-105px, -28px);
+	}
+	.penaltybox {
+		position: absolute;
+		width: 0;
+		bottom: 0;
+		transition: height 0.5s ease;
+		height: 0px;
+		background-color: var(--red);
+		display: grid;
+		place-items: center;
+		font-weight: bold;
 	}
 </style>

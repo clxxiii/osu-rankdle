@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/prisma';
-import { exponential, inverse } from '$lib/exponentials';
+import { inverse } from '$lib/exponentials';
 
 const day0 = new Date('01/14/23');
 
