@@ -45,6 +45,5 @@ export const GET = (async ({ cookies }) => {
 	delete video.shown_rank;
 	delete video.user_id;
 
-	console.log(video);
 	return json(video);
 }) satisfies RequestHandler;
