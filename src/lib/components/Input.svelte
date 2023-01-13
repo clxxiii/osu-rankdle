@@ -11,7 +11,6 @@
 	let answerline: any;
 	let answerlinetext: any;
 	let penaltybox: any;
-	let penaltyboxtext: any;
 
 	let inputDisabled: boolean;
 
@@ -67,6 +66,21 @@
 		penaltybox.style.width = `${boxWidth}px`;
 		penaltybox.style.height = '56px';
 		penaltybox.textContent = `-${penalty}`;
+	}
+
+	export function reset() {
+		penaltybox.style.height = '0px';
+		penaltybox.style.width = '0px';
+		penaltybox.textContent = '';
+		answerline.style.opacity = '0';
+		answerline.style.transform = '';
+		answerlinetext.textContent = '';
+		textbox.style.width = '200px';
+		guessbox.textContent = '';
+		input.value = sliderMax / 2; // Center
+		moveBox();
+		textbox.textContent = 'Type to guess';
+		enableInput();
 	}
 
 	function sliderInput() {
@@ -138,9 +152,7 @@
 	<div class="answerline" bind:this={answerline}>
 		<div bind:this={answerlinetext} class="text" />
 	</div>
-	<div bind:this={penaltybox} class="penaltybox">
-		<div bind:this={penaltyboxtext} class="text" />
-	</div>
+	<div bind:this={penaltybox} class="penaltybox" />
 </div>
 
 <style>

@@ -2,15 +2,16 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { prisma } from '$lib/prisma';
 
-export const GET = (async ({ cookies }) => {
+export const GET = (async ({ cookies, url }) => {
 	const sessionId = cookies.get('session');
+	const forceNew = url.searchParams.get('new') == 'true';
 	const session = await prisma.session.findUnique({
 		where: { id: sessionId },
 		include: {
 			stats: true
 		}
 	});
-	if (session.stats.current_video_id) {
+	if (session.stats.current_video_id && !forceNew) {
 		const video = await prisma.video.findUnique({
 			where: {
 				id: session.stats.current_video_id
@@ -45,5 +46,5 @@ export const GET = (async ({ cookies }) => {
 	delete video.shown_rank;
 	delete video.user_id;
 
-	return json(video);
+	return json({ ...video, stats_id: session.stats_id });
 }) satisfies RequestHandler;

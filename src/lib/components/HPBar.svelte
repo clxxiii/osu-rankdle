@@ -11,6 +11,7 @@
 	let maxHP = 2000;
 	let bar: any;
 	export let inputbar: any;
+	export let next: any;
 	let hpbar: any;
 	let hptextbox: any;
 
@@ -43,6 +44,13 @@
 		await sleep(750);
 		inputbar.showPenaltyBox(result.answer, result.penalty);
 		hit(result.penalty);
+		await sleep(500);
+		if (hp > 0) {
+			next.show();
+		} else {
+			next.show();
+			// TODO: Show Game over screen & stats
+		}
 	};
 </script>
 
