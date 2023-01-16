@@ -5,6 +5,7 @@
 	import Next from '$lib/components/Next.svelte';
 	import Submit from '$lib/components/Submit.svelte';
 	import Video from '$lib/components/Video.svelte';
+  import InfoBox from '$lib/components/InfoBox.svelte';
 	import '../app.css';
 	export let data;
 
@@ -31,6 +32,7 @@
 	<Next {video} {inputbar} {lockin} bind:this={next} />
 	<HpBar {next} {inputbar} hp={data.session.stats.hp} bind:this={hpbar} />
   <div class="submit"><Submit /></div>
+  <InfoBox />
 </div>
 
 <style>
