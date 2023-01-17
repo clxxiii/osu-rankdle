@@ -16,9 +16,9 @@ To prevent frustration, every player will have minimum 3 tries per day. If on th
 
 # Development
 
-I wrote a bash script to set up the dev environment for you:
+I wrote a [bash script](https://github.com/clxxiii/osu-rankdle/blob/main/setup.sh) to set up the dev environment for you:
 ```bash
-I'll fill this out later:
+wget -O - https://raw.githubusercontent.com/clxxiii/osu-rankdle/main/setup.sh | sh
 ```
 
 If you'd rather do it manually, here are the steps to set up the dev environment:
