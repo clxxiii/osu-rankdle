@@ -1,33 +1,57 @@
 <script lang="ts">
-  export const visible = true;
-  export const show = () => {
+	import close from '$lib/icons/x.svg';
+	export const visible = true;
+	export const show = () => {
+		if (visible) return;
+		wrap.style.opacity = '1';
+		wrap.style.pointerEvents = 'all';
+	};
+	let wrap: any;
 
-  }
-  const closeBox = () => {
-   if (!visible) return;
-
-  }
-  let dark;
+	const closeBox = () => {
+		if (!visible) return;
+		wrap.style.opacity = '0';
+		wrap.style.pointerEvents = 'none';
+	};
 </script>
 
-<div bind:this={dark} on:click={closeBox} class="dark">
-  <div class="box"></div>
+<div bind:this={wrap} class="wrap">
+	<div on:click={closeBox} class="dark" />
+	<div class="box"><img on:click={closeBox} src={close} alt="" /><slot /></div>
 </div>
 
 <style>
-  .dark {
-    position: absolute;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0,0,0,0.5);
-    backdrop-filter: blur(5px);
-    display: grid;
-    place-items: center;
-  }
-  .box {
-    width: 500px;
-    height: 800px;
-    background-color: #222222;
-  }
+	.wrap {
+		position: absolute;
+		top: 0;
+		width: 100vw;
+		height: 100vh;
+		z-index: 0;
+		display: grid;
+		place-items: center;
+		transition: 0.3s ease;
+	}
+	.dark {
+		position: absolute;
+		top: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: -1;
+	}
+	.box {
+		position: relative;
+		width: 500px;
+		height: 800px;
+		background-color: #222222;
+		z-index: 2;
+		padding: 25px;
+	}
+	.box img {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 40px;
+		cursor: pointer;
+	}
 </style>

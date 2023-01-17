@@ -5,7 +5,6 @@
 	import Next from '$lib/components/Next.svelte';
 	import Submit from '$lib/components/Submit.svelte';
 	import Video from '$lib/components/Video.svelte';
-  import InfoBox from '$lib/components/InfoBox.svelte';
 	import '../app.css';
 	export let data;
 
@@ -31,8 +30,7 @@
 	<LockIn {hpbar} bind:this={lockin} getValueFunction={clickFunction} />
 	<Next {video} {inputbar} {lockin} bind:this={next} />
 	<HpBar {next} {inputbar} hp={data.session.stats.hp} bind:this={hpbar} />
-  <div class="submit"><Submit /></div>
-  <InfoBox />
+	<div class="submit"><Submit /></div>
 </div>
 
 <style>
@@ -45,9 +43,9 @@
 		align-items: center;
 		justify-content: center;
 	}
-  .submit {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
+	.submit {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
 </style>
