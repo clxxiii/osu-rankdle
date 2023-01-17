@@ -42,7 +42,7 @@ DATABASE_URL="file:./dev.db" # If you'd like to change this, you can, this is th
 ```
 ### 3. Setup the prisma database
 ```bash
-npx prisma init
+npx prisma generate
 npx prisma migrate dev
 ```
 ### 4. Run the development server:
