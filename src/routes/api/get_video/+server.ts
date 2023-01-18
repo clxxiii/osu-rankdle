@@ -30,7 +30,7 @@ export const GET = (async ({ cookies, url }) => {
 				}
 			}
 		}
-	}); // TODO: Filter out videos this user has seen
+	});
 	const rand = Math.floor(Math.random() * videos.length);
 	const video = videos[rand];
 

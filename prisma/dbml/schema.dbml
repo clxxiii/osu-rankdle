@@ -1,0 +1,116 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Video {
+  id String [pk]
+  youtube_id String [not null]
+  shown_rank Int [not null]
+  user User [not null]
+  user_id Int [not null]
+  current_video_for Stats [not null]
+  watched_by VideoWatched [not null]
+  guesses_for Guess [not null]
+}
+
+Table User {
+  id Int [pk]
+  username String [not null]
+  country_code String [not null]
+  rank Int [not null]
+  last_stats_update DateTime [default: `now()`, not null]
+  videos Video [not null]
+  stats Stats
+  stats_id String [unique]
+  oauth OsuOauth
+}
+
+Table OsuOauth {
+  access_token String [not null]
+  refresh_token String [not null]
+  expires_in DateTime [not null]
+  token_type String [not null]
+  user User [not null]
+  user_id Int [unique, not null]
+}
+
+Table Session {
+  id String [pk]
+  stats Stats [not null]
+  stats_id String [unique, not null]
+  state String [unique]
+}
+
+Table Stats {
+  id String [pk]
+  streak Int [not null]
+  longest_streak Int [not null]
+  highest_score Int [not null]
+  played_today Boolean [not null]
+  user User
+  hp Int [not null, default: 2000]
+  session Session
+  watched VideoWatched [not null]
+  current_video Video
+  current_video_id String
+  history UserDay [not null]
+  guesses Guess [not null]
+}
+
+Table UserDay {
+  stats Stats [not null]
+  stats_id String [not null]
+  day Int [not null]
+  guesses Guess [not null]
+
+  indexes {
+    (day, stats_id) [pk]
+  }
+}
+
+Table Guess {
+  id String [pk]
+  stats Stats [not null]
+  video Video [not null]
+  guess_num Int [not null]
+  input Int [not null]
+  penalty Int [not null]
+  day Int [not null]
+  video_id String [not null]
+  stats_id String [not null]
+  on_day UserDay [not null]
+  on_day_stats_id String [not null]
+}
+
+Table VideoWatched {
+  video Video [not null]
+  stats Stats [not null]
+  video_id String [not null]
+  stats_id String [not null]
+
+  indexes {
+    (video_id, stats_id) [pk]
+  }
+}
+
+Ref: Video.user_id > User.id
+
+Ref: User.stats_id - Stats.id
+
+Ref: OsuOauth.user_id - User.id
+
+Ref: Session.stats_id - Stats.id
+
+Ref: Stats.current_video_id > Video.id
+
+Ref: UserDay.stats_id > Stats.id
+
+Ref: Guess.stats_id > Stats.id
+
+Ref: Guess.video_id > Video.id
+
+Ref: Guess.(day, on_day_stats_id) > UserDay.(day, stats_id)
+
+Ref: VideoWatched.video_id > Video.id
+
+Ref: VideoWatched.stats_id > Stats.id

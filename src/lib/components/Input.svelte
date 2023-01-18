@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import { sliderMin, sliderMax, exponential, inverse } from '$lib/exponentials';
+	import { sliderMin, sliderMax, exponential, inverse } from '$lib/constants';
 
 	onMount(moveBox);
 

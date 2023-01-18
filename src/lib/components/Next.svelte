@@ -19,7 +19,7 @@
 		lockin.show();
 		hide();
 
-		let newVideoReq = await fetch('/api/get_video?new=true');
+		let newVideoReq = await fetch('/api/get_video');
 		let newVideo = await newVideoReq.json();
 		video.changeId(newVideo.youtube_id);
 	};

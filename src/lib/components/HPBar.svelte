@@ -12,6 +12,7 @@
 	let bar: any;
 	export let inputbar: any;
 	export let next: any;
+	export let showResults: any;
 	let hpbar: any;
 	let hptextbox: any;
 
@@ -48,8 +49,9 @@
 		if (hp > 0) {
 			next.show();
 		} else {
-			next.show();
-			// TODO: Show Game over screen & stats
+			let statReq = await fetch('/api/finalize_results');
+			let stats = statReq.json();
+			showResults(stats);
 		}
 	};
 </script>

@@ -1,22 +1,10 @@
-import { prisma } from '$lib/prisma';
+import { v4 as uuidv4 } from 'uuid';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle = (async ({ event, resolve }) => {
 	let sessionId = event.cookies.get('session');
 	if (!sessionId) {
-		const session = await prisma.session.create({
-			data: {
-				stats: {
-					create: {
-						played_today: false,
-						highest_score: 0,
-						longest_streak: 0,
-						streak: 0
-					}
-				}
-			}
-		});
-		sessionId = session.id;
+		sessionId = uuidv4();
 		event.cookies.set('session', sessionId);
 	}
 	const response = await resolve(event);

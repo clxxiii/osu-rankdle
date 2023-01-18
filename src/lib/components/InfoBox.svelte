@@ -1,23 +1,36 @@
 <script lang="ts">
 	import close from '$lib/icons/x.svg';
 	export const visible = true;
+	export let closeable = 'true';
+
+	const closeVar = closeable == 'true';
+
 	export const show = () => {
 		if (visible) return;
 		wrap.style.opacity = '1';
 		wrap.style.pointerEvents = 'all';
 	};
-	let wrap: any;
-
-	const closeBox = () => {
+	export const hide = () => {
 		if (!visible) return;
 		wrap.style.opacity = '0';
 		wrap.style.pointerEvents = 'none';
+	};
+	let wrap: any;
+
+	const closeBox = () => {
+		if (!closeVar) return;
+		hide();
 	};
 </script>
 
 <div bind:this={wrap} class="wrap">
 	<div on:click={closeBox} class="dark" />
-	<div class="box"><img on:click={closeBox} src={close} alt="" /><slot /></div>
+	<div class="box">
+		{#if closeVar}
+			<img on:click={closeBox} src={close} alt="close button" />
+		{/if}
+		<slot />
+	</div>
 </div>
 
 <style>

@@ -5,6 +5,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
@@ -18,24 +22,37 @@ model Video {
   user_id           Int
   current_video_for Stats[]
   watched_by        VideoWatched[]
-  Guess             Guess[]
+  guesses_for       Guess[]
 }
 
 model User {
-  id                Int      @id
+  id                Int       @id
   username          String
   country_code      String
   rank              Int
-  last_stats_update DateTime @default(now())
+  last_stats_update DateTime  @default(now())
   videos            Video[]
-  stats             Stats?   @relation(fields: [stats_id], references: [id])
-  stats_id          String?  @unique
+  stats             Stats?    @relation(fields: [stats_id], references: [id])
+  stats_id          String?   @unique
+  oauth             OsuOauth?
+}
+
+model OsuOauth {
+  access_token  String
+  refresh_token String
+  expires_in    DateTime
+  token_type    String
+
+  user    User @relation(fields: [user_id], references: [id])
+  user_id Int  @unique
 }
 
 model Session {
   id       String @id @default(uuid())
   stats    Stats  @relation(fields: [stats_id], references: [id])
   stats_id String @unique
+
+  state String? @unique // This property is used against XSS. Once verified, it is not used again.
 }
 
 model Stats {
@@ -51,6 +68,7 @@ model Stats {
   current_video    Video?         @relation(fields: [current_video_id], references: [id])
   current_video_id String?
   history          UserDay[]
+  guesses          Guess[]
 }
 
 model UserDay {
@@ -63,15 +81,17 @@ model UserDay {
 }
 
 model Guess {
-  on_day   UserDay @relation(fields: [day, stats_id], references: [day, stats_id])
-  video    Video   @relation(fields: [video_id], references: [id])
-  input    Int
-  penalty  Int
-  day      Int
-  stats_id String
-  video_id String
-
-  @@id([day, video_id])
+  id              String  @id @default(uuid())
+  stats           Stats   @relation(fields: [stats_id], references: [id])
+  video           Video   @relation(fields: [video_id], references: [id])
+  guess_num       Int
+  input           Int
+  penalty         Int
+  day             Int
+  video_id        String
+  stats_id        String
+  on_day          UserDay @relation(fields: [day, on_day_stats_id], references: [day, stats_id])
+  on_day_stats_id String
 }
 
 // Intermediary relations

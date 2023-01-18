@@ -1,6 +1,9 @@
 export const sliderMin = 1;
 export const sliderMax = 2000000;
 
+export const day0 = new Date('01/20/23');
+
+export const getDay = () => Math.ceil((Date.now() - day0.getTime()) / (24 * 60 * 60 * 1000));
 /*
  These are magic functions that
  take the input slider position
