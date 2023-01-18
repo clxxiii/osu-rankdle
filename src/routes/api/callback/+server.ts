@@ -100,6 +100,19 @@ export const GET = (async ({ cookies, url }) => {
 						token_type: token.token_type
 					}
 				}
+			},
+			stats: {
+				connectOrCreate: {
+					where: {
+						id: session.stats_id
+					},
+					create: {
+						highest_score: 0,
+						longest_streak: 0,
+						played_today: false,
+						streak: 0
+					}
+				}
 			}
 		}
 	});

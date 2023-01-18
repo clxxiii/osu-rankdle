@@ -8,10 +8,13 @@
 		const answerRes = await fetch(`/api/get_answer?input=${inputValue}`);
 		const answer = await answerRes.json();
 		hpbar.animate(answer);
-		el.style.opacity = 0;
-		setTimeout(() => (el.style.display = 'none'), 500);
+		hide();
 	}
 
+	export const hide = () => {
+		el.style.opacity = 0;
+		setTimeout(() => (el.style.display = 'none'), 500);
+	};
 	export const show = () => {
 		el.style.display = 'block';
 		el.style.opacity = 1;

@@ -8,7 +8,6 @@
 	const loginNoAccount = async () => {
 		let statsReq = await fetch('/api/make_stats');
 		let stats = await statsReq.json();
-		console.log(stats);
 		let videoReq = await fetch('/api/get_video');
 		let video = await videoReq.json();
 		setVideo(video.youtube_id);

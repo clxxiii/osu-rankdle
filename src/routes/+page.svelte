@@ -5,7 +5,7 @@
 	import LoginScreen from '$lib/components/LoginScreen.svelte';
 	import Next from '$lib/components/Next.svelte';
 	import Results from '$lib/components/Results.svelte';
-	import Submit from '$lib/components/Submit.svelte';
+	import Menu from '$lib/components/Menu.svelte';
 	import Video from '$lib/components/Video.svelte';
 	import '../app.css';
 	export let data;
@@ -16,6 +16,12 @@
 	let lockin;
 	let video;
 	let results;
+	let resultData = {
+		streak: data.session.stats.streak,
+		highest_score: data.session.stats.highest_score,
+		longest_streak: data.session.stats.longest_streak,
+		score: data.score
+	};
 
 	let resultsShown = false;
 
@@ -32,8 +38,13 @@
 	};
 
 	const showResults = (d) => {
+		resultData = {
+			streak: d.streak,
+			highest_score: d.highest_score,
+			longest_streak: d.longest_streak,
+			score: d.score
+		};
 		resultsShown = true;
-		results.show(d);
 	};
 </script>
 
@@ -48,12 +59,12 @@
 	<LockIn {hpbar} bind:this={lockin} getValueFunction={clickFunction} />
 	<Next {video} {inputbar} {lockin} bind:this={next} />
 	<HpBar {next} {inputbar} {showResults} hp={data?.session?.stats?.hp} bind:this={hpbar} />
-	<div class="submit"><Submit /></div>
+	<div class="submit"><Menu userData={data?.session?.stats?.user} /></div>
 	{#if !data.session}
 		<LoginScreen {setVideo} {setHP} />
 	{/if}
-	{#if data?.session?.stats?.hp <= 0 || resultsShown}
-		<Results data={data.session.stats} bind:this={results} />
+	{#if data?.session?.stats?.played_today || resultsShown}
+		<Results {...resultData} bind:this={results} />
 	{/if}
 </div>
 

@@ -37,6 +37,7 @@ export const GET = (async ({ cookies }) => {
 
 	let { streak, longest_streak, highest_score } = stats;
 
+	if (!lastDay) streak = 1;
 	if (lastDay) streak = streak + 1;
 	if (streak > longest_streak) longest_streak = streak;
 	if (day.guesses.length > highest_score) highest_score = day.guesses.length;
@@ -72,5 +73,5 @@ export const GET = (async ({ cookies }) => {
 			}
 		}
 	});
-	return json(stats);
+	return json({ ...stats, score: day.guesses.length });
 }) satisfies RequestHandler;

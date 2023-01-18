@@ -55,7 +55,7 @@
 	.box {
 		position: relative;
 		width: 500px;
-		height: 800px;
+		height: 400px;
 		background-color: #222222;
 		z-index: 2;
 		padding: 25px;

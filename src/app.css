@@ -11,6 +11,10 @@
     font-family: Quicksand;
     src: url(./lib/fonts/Quicksand-VariableFont_wght.ttf);
 }
+@font-face {
+    font-family: SofiaSans;
+    src: url(./lib/fonts/SofiaSansCondensed-VariableFont_wght.ttf);
+}
 body {
     margin: 0;
     background-color: var(--background);

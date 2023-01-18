@@ -50,8 +50,8 @@
 			next.show();
 		} else {
 			let statReq = await fetch('/api/finalize_results');
-			let stats = statReq.json();
-			showResults(stats);
+			let results = await statReq.json();
+			showResults(results);
 		}
 	};
 </script>

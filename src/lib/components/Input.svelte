@@ -50,13 +50,11 @@
 	}
 
 	export function showPenaltyBox(answer: number, penalty: number) {
-		console.log({ answer, penalty });
 		let inputWidth = input.offsetWidth;
 		let answerPosition = (inverse(answer) / sliderMax) * inputWidth + 2;
 		let guessPosition = (inverse(exponential(input.value)) / sliderMax) * inputWidth;
 
 		let boxWidth = Math.abs(answerPosition - guessPosition);
-		console.log({ answerPosition, guessPosition, boxWidth });
 		if (answerPosition > guessPosition) {
 			penaltybox.style.left = `${guessPosition + 3}px`;
 		} else {
