@@ -6,6 +6,8 @@ const banchoAPIKey = ``;
 
 const userReqLink = `https://osu.ppy.sh/api/get_user?k=${banchoAPIKey}&u=`;
 
+const users = {};
+
 const data = newData
 	.split('\n')
 	.filter((x) => x != '')
@@ -18,14 +20,12 @@ addVideos(data);
 
 async function addVideos(data) {
 	for (const video of data) {
-		await new Promise((resolve) => setTimeout(resolve, 1000));
 		console.log(video);
 
 		let duplicateCheck = await prisma.video.findFirst({ where: { youtube_id: video.youtube_id } });
 		if (duplicateCheck) continue;
 
-		let userReq = await fetch(userReqLink + video.user_id);
-		let userData = (await userReq.json())[0];
+		let userData = await getUser(video.user_id);
 
 		console.log(userData);
 		await prisma.user.upsert({
@@ -54,4 +54,15 @@ async function addVideos(data) {
 			}
 		});
 	}
+}
+
+async function getUser(id) {
+	if (users[id]) return users[id];
+
+	await new Promise((resolve) => setTimeout(resolve, 1000));
+	let userReq = await fetch(`${userReqLink}${id}`);
+	let userData = await userReq.json();
+
+	users[id] = userData[0];
+	return userData[0];
 }
