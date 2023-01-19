@@ -158,6 +158,7 @@
 		position: relative;
 		z-index: 0;
 		margin: 30px;
+		transform: skew(-15deg);
 	}
 	input[type='range'] {
 		appearance: none;

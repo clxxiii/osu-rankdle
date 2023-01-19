@@ -33,6 +33,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
 	}
 	.osu {
 		width: 90%;
@@ -54,5 +55,15 @@
 	}
 	.osu img {
 		width: 60px;
+	}
+	.nosu {
+		background: rgba(0, 0, 0, 0.5);
+		border-radius: 20px;
+		color: white;
+		padding: 10px;
+		font-family: SofiaSans;
+		font-size: 18px;
+		cursor: pointer;
+		border: 0;
 	}
 </style>
