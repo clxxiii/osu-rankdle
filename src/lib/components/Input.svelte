@@ -75,6 +75,7 @@
 		answerlinetext.textContent = '';
 		textbox.style.width = '200px';
 		guessbox.textContent = '';
+		currentTextInput = '';
 		input.value = sliderMax / 2; // Center
 		moveBox();
 		textbox.textContent = 'Type to guess';
