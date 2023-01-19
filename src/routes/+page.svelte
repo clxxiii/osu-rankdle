@@ -28,7 +28,7 @@
 	};
 
 	let resultsShown = false;
-	let currentScore = data.score;
+	let currentScore = data.score ?? 0;
 
 	const clickFunction = () => {
 		return inputBar.getValue();
@@ -100,7 +100,7 @@
 	<Video bind:this={video} video_id={data?.video?.youtube_id} />
 	<Input bind:this={inputBar} />
 	<LockIn endRoundFunction={endRound} bind:this={lockin} getValueFunction={clickFunction} />
-	<Next {video} inputbar={inputBar} {lockin} bind:this={next} />
+	<Next {playedBy} {video} inputbar={inputBar} {lockin} bind:this={next} />
 	<HpBar hp={data?.session?.stats?.hp} bind:this={hpBar} />
 	{#if !data.session}
 		<LoginScreen {setVideo} {setHP} />
@@ -114,11 +114,17 @@
 <style>
 	h1 {
 		color: var(--yellow);
+		margin: 0;
+		margin-top: 0.2em;
+	}
+	.score {
+		margin-bottom: 0.75em;
 	}
 	.page {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		font-weight: 600;
 		justify-content: center;
 	}
 </style>
