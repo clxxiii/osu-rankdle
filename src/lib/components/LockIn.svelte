@@ -1,19 +1,19 @@
 <script>
 	export let getValueFunction;
-	export let hpbar;
+	export let endRoundFunction;
 	let el;
 
 	async function lockIn() {
 		let inputValue = getValueFunction();
 		const answerRes = await fetch(`/api/get_answer?input=${inputValue}`);
 		const answer = await answerRes.json();
-		hpbar.animate(answer);
+		endRoundFunction(answer);
 		hide();
 	}
 
 	export const hide = () => {
 		el.style.opacity = 0;
-		setTimeout(() => (el.style.display = 'none'), 500);
+		el.style.display = 'none';
 	};
 	export const show = () => {
 		el.style.display = 'block';
