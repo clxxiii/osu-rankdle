@@ -7,6 +7,7 @@
 		'https://docs.google.com/forms/d/e/1FAIpQLSciZQRnhBvLTrxx-TBQ5a8u3u5b5vA39LLTlbSuvHqSx6OMHQ/viewform?usp=sf_link';
 
 	let dark;
+	let darkNoAccount;
 	let profile;
 	let title;
 
@@ -16,30 +17,50 @@
 	const toggleMenu = () => {
 		if (!menuShown) {
 			// Show
-			dark.style.opacity = '1';
-			dark.style.pointerEvents = 'all';
+			if (dark) {
+				dark.style.inset = '0';
+				dark.style.opacity = '1';
+				dark.style.pointerEvents = 'all';
+			}
+			if (darkNoAccount) {
+				darkNoAccount.style.inset = '0';
+				darkNoAccount.style.opacity = '1';
+				darkNoAccount.style.pointerEvents = 'all';
+			}
 		} else {
 			// Hide
-			dark.style.opacity = '0';
-			dark.style.pointerEvents = 'none';
+			if (dark) {
+				setTimeout(() => (dark.style.inset = '50%'), 500);
+				dark.style.opacity = '0';
+				dark.style.pointerEvents = 'none';
+			}
+			if (darkNoAccount) {
+				setTimeout(() => (darkNoAccount.style.inset = '50%'), 500);
+				darkNoAccount.style.opacity = '0';
+				darkNoAccount.style.pointerEvents = 'none';
+			}
 		}
 
 		menuShown = !menuShown;
 	};
-
-	const titlechange = () => {
-		title.innerHTML = `	<i>See ya <span class="name">${userData.username}</span> :(</i>`;
-	};
 </script>
 
 {#if !userData}
-	<a class="profile" href="/api/login">
+	<button class="profile" on:click={toggleMenu}>
 		<img src={User} alt="blank user icon" />
 		<div class="login-text">
 			<div class="top"><i>login</i></div>
 			<div class="bottom"><i>to submit clips</i></div>
 		</div>
-	</a>
+	</button>
+	<div on:click={toggleMenu} on:keydown|self={toggleMenu} class="dark" bind:this={darkNoAccount}>
+		<div class="head" bind:this={title}>
+			<i>Hey there!</i>
+		</div>
+		<a href="/api/login">login</a>
+		<a href="/">HOME</a>
+		<a href="/faq">FAQ</a>
+	</div>
 {:else}
 	<button bind:this={profile} class="profile shrink" on:click={toggleMenu}>
 		<img
@@ -56,27 +77,28 @@
 			</div>
 		</div>
 	</button>
-	<div class="dark" bind:this={dark}>
+	<div on:click={toggleMenu} on:keydown|self={toggleMenu} class="dark" bind:this={dark}>
 		<div class="head" bind:this={title}>
 			<i>Howdy, <span class="name">{userData.username}</span></i>
 		</div>
-    <a on:click={toggleMenu} href="/">HOME</a>
-    <a on:click={toggleMenu} href="/faq">FAQ</a>
-    <a on:click={toggleMenu} href="/submit">submit</a>
-		<a on:click={titlechange} href="/api/logout">logout</a>
+		<a href="/">HOME</a>
+		<a href="/faq">FAQ</a>
+		<a href="/submit">submit</a>
+		<a href="/api/logout">logout</a>
 	</div>
 {/if}
 
 <style>
 	.dark {
 		position: absolute;
-		inset: 0;
+		inset: 50%;
 		background: rgba(0, 0, 0, 0.75);
 		transition: opacity 0.3s ease;
 		backdrop-filter: blur(5px);
 		opacity: 0;
 		border: 0;
 		pointer-events: none;
+		overflow: hidden;
 		z-index: 10;
 		display: flex;
 		flex-direction: column;
@@ -98,6 +120,7 @@
 		text-transform: uppercase;
 		margin: 10px 0px;
 		padding: 10px;
+		pointer-events: all;
 	}
 	.dark a::after {
 		content: '';
@@ -130,7 +153,7 @@
 		text-decoration: none;
 		cursor: pointer;
 		transition: all 0.3s ease;
-		z-index: 1;
+		z-index: 11;
 	}
 	.profile .pic {
 		width: 45px;
