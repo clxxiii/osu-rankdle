@@ -17,9 +17,9 @@
 	let video;
 	let results;
 	let resultData = {
-		streak: data.session.stats.streak,
-		highest_score: data.session.stats.highest_score,
-		longest_streak: data.session.stats.longest_streak,
+		streak: data.session?.stats?.streak,
+		highest_score: data.session?.stats?.highest_score,
+		longest_streak: data.session?.stats?.longest_streak,
 		score: data.score
 	};
 
@@ -59,7 +59,7 @@
 	<LockIn {hpbar} bind:this={lockin} getValueFunction={clickFunction} />
 	<Next {video} {inputbar} {lockin} bind:this={next} />
 	<HpBar {next} {inputbar} {showResults} hp={data?.session?.stats?.hp} bind:this={hpbar} />
-	<div class="submit"><Menu userData={data?.session?.stats?.user} /></div>
+	<Menu userData={data?.session?.stats?.user} />
 	{#if !data.session}
 		<LoginScreen {setVideo} {setHP} />
 	{/if}
@@ -70,17 +70,12 @@
 
 <style>
 	h1 {
-		color: var(--pink);
+		color: var(--yellow);
 	}
 	.page {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-	}
-	.submit {
-		position: absolute;
-		top: 0;
-		right: 0;
 	}
 </style>

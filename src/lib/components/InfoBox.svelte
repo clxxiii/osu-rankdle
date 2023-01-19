@@ -39,7 +39,7 @@
 		top: 0;
 		width: 100vw;
 		height: 100vh;
-		z-index: 0;
+		z-index: 2;
 		display: grid;
 		place-items: center;
 		transition: 0.3s ease;

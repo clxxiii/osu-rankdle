@@ -6,7 +6,30 @@
 	let submitFormLink =
 		'https://docs.google.com/forms/d/e/1FAIpQLSciZQRnhBvLTrxx-TBQ5a8u3u5b5vA39LLTlbSuvHqSx6OMHQ/viewform?usp=sf_link';
 
-	let flag = `https://osu.ppy.sh/images/flags/${userData.country_code}.png`;
+	let dark;
+	let profile;
+	let title;
+
+	let flag = `https://osu.ppy.sh/images/flags/${userData?.country_code}.png`;
+
+	let menuShown = false;
+	const toggleMenu = () => {
+		if (!menuShown) {
+			// Show
+			dark.style.opacity = '1';
+			dark.style.pointerEvents = 'all';
+		} else {
+			// Hide
+			dark.style.opacity = '0';
+			dark.style.pointerEvents = 'none';
+		}
+
+		menuShown = !menuShown;
+	};
+
+	const titlechange = () => {
+		title.innerHTML = `	<i>See ya <span class="name">${userData.username}</span> :(</i>`;
+	};
 </script>
 
 {#if !userData}
@@ -18,7 +41,7 @@
 		</div>
 	</a>
 {:else}
-	<div class="profile">
+	<button bind:this={profile} class="profile shrink" on:click={toggleMenu}>
 		<img
 			src={`https://s.ppy.sh/a/${userData.id}`}
 			style="mask-image: url({Hexagon}); -webkit-mask-image: url({Hexagon})"
@@ -32,14 +55,71 @@
 				<img src={flag} alt="flag" class="flag" />
 			</div>
 		</div>
+	</button>
+	<div class="dark" bind:this={dark}>
+		<div class="head" bind:this={title}>
+			<i>Howdy, <span class="name">{userData.username}</span></i>
+		</div>
+		<a href="/faq">FAQ</a>
+		<a href="/submit">submit</a>
+		<a on:click={titlechange} href="/api/logout">logout</a>
 	</div>
 {/if}
 
 <style>
-	.profile {
+	.dark {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.75);
+		transition: opacity 0.3s ease;
+		backdrop-filter: blur(5px);
+		opacity: 0;
+		border: 0;
+		pointer-events: none;
+		z-index: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	.dark .head {
+		font-size: 48px;
+		font-family: SofiaSans;
+		text-transform: uppercase;
+	}
+	.dark .head .name {
+		color: var(--sky);
+	}
+	.dark a {
 		position: relative;
 		color: white;
-		/* width: 180px; */
+		text-decoration: none;
+		text-transform: uppercase;
+		margin: 10px 0px;
+		padding: 10px;
+	}
+	.dark a::after {
+		content: '';
+		position: absolute;
+		bottom: -1px;
+		left: 50%;
+		width: 0%;
+		height: 2px;
+		background-color: white;
+		transition: 0.3s ease;
+	}
+	.dark a:hover::after {
+		left: 0%;
+		width: 100%;
+	}
+	.profile {
+		position: absolute;
+		top: 0;
+		right: 0;
+		color: white;
+		background: 0;
+		border: 0;
+		text-align: left;
 		height: 50px;
 		display: flex;
 		align-items: center;
@@ -48,17 +128,19 @@
 		font-weight: bold;
 		text-decoration: none;
 		cursor: pointer;
-		transition: all 0.5s ease;
+		transition: all 0.3s ease;
+		z-index: 1;
 	}
 	.profile .pic {
-		width: 40px;
+		width: 45px;
 		transition: all 0.3s ease;
-		mask-size: 40px;
-		-webkit-mask-size: 40px;
+		mask-size: 45px;
+		-webkit-mask-size: 45px;
 	}
 	.login-text {
 		font-family: SofiaSans;
 		text-transform: uppercase;
+		text-align: left;
 	}
 	.top {
 		font-weight: 400;
