@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 
 	export let title = 'Time until HP reset';
-	export let toTime;
+	export let toTime = null;
 
 	let hours = '';
 	let minutes = '';

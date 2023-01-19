@@ -9,17 +9,27 @@ export const load = (async ({ params, cookies }) => {
 			id: session_id
 		}
 	});
+
 	const stats = await prisma.stats.findUnique({
 		where: {
 			id: stats_id
 		}
 	});
-	const history = await prisma.userDay.findMany({
+	console.log(stats);
+	console.log(parseInt(params.day));
+	const day = await prisma.userDay.findUnique({
 		where: {
-			stats_id: stats.id
+			day_stats_id: {
+				day: parseInt(params.day),
+				stats_id: stats.id
+			}
 		},
 		include: {
-			guesses: {}
+			guesses: {
+				include: {
+					video: true
+				}
+			}
 		}
 	});
 
@@ -29,7 +39,7 @@ export const load = (async ({ params, cookies }) => {
 				stats_id: stats.id
 			}
 		});
-		return { history, stats_id, user };
+		return { day, stats_id, user };
 	}
-	return { history, stats_id };
+	return { day, stats_id };
 }) satisfies ServerLoad;
