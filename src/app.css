@@ -1,11 +1,12 @@
 :root {
-    --pink: #ff99c9;
-    --lavender: #c1bddb;
-    --sky: #a2c7e5;
-    --teal: #58fcec;
+    --pink: rgb(255, 153, 201);
+    --lavender: rgb(193, 189, 219);
+    --sky: rgb(162, 199, 229);
+    --green: rgb(162, 229, 184);
+    --teal: rgb(88, 252, 236);
     --dark: #303a2b;
     --red: rgb(235,93,93);
-    --yellow: #FFCE2C;
+    --yellow: rgb(255, 206, 44);
     --background: rgb(27,27,27)
 }
 @font-face {
