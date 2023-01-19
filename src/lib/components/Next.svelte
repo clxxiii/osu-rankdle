@@ -3,6 +3,7 @@
 	export let inputbar: any;
 	export let lockin: any;
 	export let video: any;
+	export let playedBy: any;
 
 	export const show = () => {
 		next.style.display = 'block';
@@ -17,6 +18,7 @@
 	let clicked = async () => {
 		inputbar.reset();
 		lockin.show();
+		playedBy.hide();
 		hide();
 
 		let newVideoReq = await fetch('/api/get_video');
@@ -29,8 +31,27 @@
 
 <style>
 	button {
+		position: relative;
 		transition: 0.5s ease;
 		opacity: 0;
 		display: none;
+		width: 220px;
+		height: 50px;
+		background: #333333;
+		color: rgb(194, 194, 194);
+		font-size: 45px;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		justify-content: space-evenly;
+		border: 0;
+		transition: width 0.1s ease;
+		font-family: SofiaSans;
+		text-transform: uppercase;
+		font-weight: 800;
+		gap: 10px;
+	}
+	button:hover {
+		width: 190px;
 	}
 </style>
