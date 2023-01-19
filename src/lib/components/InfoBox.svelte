@@ -15,7 +15,7 @@
 		wrap.style.opacity = '0';
 		wrap.style.pointerEvents = 'none';
 	};
-	let wrap: any;
+	let wrap: HTMLDivElement;
 
 	const closeBox = () => {
 		if (!closeVar) return;
@@ -24,10 +24,10 @@
 </script>
 
 <div bind:this={wrap} class="wrap">
-	<div on:click={closeBox} class="dark" />
+	<button on:click={closeBox} class="dark" />
 	<div class="box">
 		{#if closeVar}
-			<img on:click={closeBox} src={close} alt="close button" />
+			<button on:click={closeBox}><img src={close} alt="close button" /></button>
 		{/if}
 		<slot />
 	</div>
@@ -49,6 +49,7 @@
 		top: 0;
 		width: 100vw;
 		height: 100vh;
+		border: 0;
 		background-color: rgba(0, 0, 0, 0.5);
 		z-index: -1;
 	}
@@ -59,6 +60,13 @@
 		background-color: #222222;
 		z-index: 2;
 		padding: 25px;
+	}
+	.box button {
+		position: absolute;
+		top: 0;
+		right: 0;
+		background: 0;
+		border: 0;
 	}
 	.box img {
 		position: absolute;

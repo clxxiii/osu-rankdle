@@ -2,9 +2,9 @@
 	import heart from '$lib/icons/heart.svg';
 	import heartbreak from '$lib/icons/heartbreak.svg';
 	let maxHP = 2000;
-	let bar: any;
-	let hpbar: any;
-	let hptextbox: any;
+	let bar: HTMLDivElement;
+	let hpbar: HTMLDivElement;
+	let hptextbox: HTMLDivElement;
 
 	export let hp = maxHP;
 	export const set = (num: number) => {

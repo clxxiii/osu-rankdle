@@ -1,7 +1,7 @@
-<script>
-	export let video_id;
+<script lang="ts">
+	export let video_id: string;
 
-	export const changeId = (id) => (video_id = id);
+	export const changeId = (id: string) => (video_id = id);
 </script>
 
 <iframe

@@ -11,18 +11,18 @@
 		id: 1
 	};
 
-	let el: any;
+	let el: HTMLDivElement;
 	let flag: string;
 	$: flag = `https://osu.ppy.sh/images/flags/${userData?.country_code}.png`;
 
 	export const changeUser = (u: User) => (userData = u);
 
 	export const hide = () => {
-		el.style.opacity = 0;
+		el.style.opacity = '0';
 	};
 
 	export const show = () => {
-		el.style.opacity = 1;
+		el.style.opacity = '1';
 	};
 </script>
 

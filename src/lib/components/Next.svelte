@@ -1,9 +1,14 @@
 <script lang="ts">
+	import type Input from './Input.svelte';
+	import type LockIn from './LockIn.svelte';
+	import type PlayedBy from './PlayedBy.svelte';
+	import type Video from './Video.svelte';
+
 	let next: any;
-	export let inputbar: any;
-	export let lockin: any;
-	export let video: any;
-	export let playedBy: any;
+	export let inputbar: Input;
+	export let lockin: LockIn;
+	export let video: Video;
+	export let playedBy: PlayedBy;
 
 	export const show = () => {
 		next.style.display = 'block';

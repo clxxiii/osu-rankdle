@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
 	import Lock from '$lib/icons/unlock.svg';
-	export let getValueFunction;
-	export let endRoundFunction;
-	let el;
+	export let getValueFunction: () => number;
+	export let endRoundFunction: (answer: any) => void;
+	let el: HTMLButtonElement;
 
 	async function lockIn() {
 		hide();
@@ -13,12 +13,12 @@
 	}
 
 	export const hide = () => {
-		el.style.opacity = 0;
+		el.style.opacity = '0';
 		el.style.display = 'none';
 	};
 	export const show = () => {
 		el.style.display = 'block';
-		el.style.opacity = 1;
+		el.style.opacity = '1';
 	};
 </script>
 

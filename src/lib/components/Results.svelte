@@ -2,7 +2,7 @@
 	import InfoBox from './InfoBox.svelte';
 	import Timer from './Timer.svelte';
 
-	let box: any;
+	let box: InfoBox;
 	export let streak: number;
 	export let longest_streak: number;
 	export let highest_score: number;

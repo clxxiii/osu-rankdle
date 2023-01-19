@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
 	import InfoBox from './InfoBox.svelte';
 	import User from '$lib/icons/user-octagon.svg';
-	let el;
-	export let setVideo;
-	export let setHP;
+	let el: InfoBox;
+	export let setVideo: (id: string) => void;
+	export let setHP: (hp: number) => void;
 
 	export const hide = () => el.hide();
 	const loginNoAccount = async () => {

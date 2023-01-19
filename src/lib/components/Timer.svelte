@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
 	import { day0, getDay } from '$lib/constants';
 	import { onMount } from 'svelte';
 
 	export let title = 'Time until HP reset';
 	export let toTime = null;
 
-	let hours = '';
-	let minutes = '';
-	let seconds = '';
+	let hours = 0;
+	let minutes = 0;
+	let seconds = 0;
 
 	let shift = getDay() * 1000 * 60 * 60 * 24;
 	toTime = toTime ?? day0.getTime() + shift;
@@ -33,9 +33,9 @@
 <div class="timer">
 	<div class="title">{title}</div>
 	<div class="numbers">
-		<div class="h">{hours}</div>
-		<div class="m">{minutes}</div>
-		<div class="s">{seconds}</div>
+		<div class="h">{hours === 0 ? '' : hours}</div>
+		<div class="m">{minutes === 0 ? '' : minutes}</div>
+		<div class="s">{seconds === 0 ? '' : seconds}</div>
 	</div>
 </div>
 

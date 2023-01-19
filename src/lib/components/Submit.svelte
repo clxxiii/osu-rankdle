@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	let submitFormLink =
 		'https://docs.google.com/forms/d/e/1FAIpQLSciZQRnhBvLTrxx-TBQ5a8u3u5b5vA39LLTlbSuvHqSx6OMHQ/viewform?usp=sf_link';
 </script>

@@ -1,15 +1,12 @@
-<script>
+<script lang="ts">
 	import User from '$lib/icons/user-octagon.svg';
 	import Hexagon from '$lib/icons/hex.svg';
-	export let userData;
+	import type { User as UserType } from '@prisma/client';
+	export let userData: UserType;
 
-	let submitFormLink =
-		'https://docs.google.com/forms/d/e/1FAIpQLSciZQRnhBvLTrxx-TBQ5a8u3u5b5vA39LLTlbSuvHqSx6OMHQ/viewform?usp=sf_link';
-
-	let dark;
-	let darkNoAccount;
-	let profile;
-	let title;
+	let dark: HTMLDivElement;
+	let darkNoAccount: HTMLDivElement;
+	let profile: HTMLButtonElement;
 
 	let flag = `https://osu.ppy.sh/images/flags/${userData?.country_code}.png`;
 
@@ -54,7 +51,7 @@
 		</div>
 	</button>
 	<div on:click={toggleMenu} on:keydown|self={toggleMenu} class="dark" bind:this={darkNoAccount}>
-		<div class="head" bind:this={title}>
+		<div class="head">
 			<i>Hey there!</i>
 		</div>
 		<a href="/api/login">login</a>
@@ -78,7 +75,7 @@
 		</div>
 	</button>
 	<div on:click={toggleMenu} on:keydown|self={toggleMenu} class="dark" bind:this={dark}>
-		<div class="head" bind:this={title}>
+		<div class="head">
 			<i>Howdy, <span class="name">{userData.username}</span></i>
 		</div>
 		<a href="/">HOME</a>

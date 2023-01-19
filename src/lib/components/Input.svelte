@@ -5,16 +5,16 @@
 
 	onMount(moveBox);
 
-	let textbox: any;
-	let guessbox: any;
-	let input: any;
-	let answerline: any;
-	let answerlinetext: any;
-	let penaltybox: any;
+	let textbox: HTMLDivElement;
+	let guessbox: HTMLDivElement;
+	let input: HTMLInputElement;
+	let answerline: HTMLDivElement;
+	let answerlinetext: HTMLDivElement;
+	let penaltybox: HTMLDivElement;
 
 	let inputDisabled: boolean;
 
-	export const getValue = () => exponential(input.value);
+	export const getValue = () => exponential(parseInt(input.value));
 	export const disableInput = () => {
 		inputDisabled = true;
 		input.style.pointerEvents = 'none';
@@ -30,7 +30,7 @@
 		let inputWidth = input.offsetWidth;
 		// I know it looks stupid, this is the easiest way to account
 		// for calculating the width of the slider head.
-		let movePercent = inverse(exponential(input.value)) / sliderMax;
+		let movePercent = inverse(exponential(parseInt(input.value))) / sliderMax;
 		let currentTransform = movePercent * inputWidth;
 		textbox.textContent = '';
 		textbox.style.transform = `translate(${currentTransform}px)`;
@@ -38,7 +38,7 @@
 		textbox.style.width = '0px';
 		guessbox.style.opacity = '1';
 		guessbox.style.transform = `translate(${currentTransform - 100}px)`;
-		guessbox.textContent = '#' + exponential(input.value).toLocaleString();
+		guessbox.textContent = '#' + exponential(parseInt(input.value)).toLocaleString();
 	}
 
 	export function showAnswerLine(answer: number) {
@@ -52,7 +52,7 @@
 	export function showPenaltyBox(answer: number, penalty: number) {
 		let inputWidth = input.offsetWidth;
 		let answerPosition = (inverse(answer) / sliderMax) * inputWidth + 2;
-		let guessPosition = (inverse(exponential(input.value)) / sliderMax) * inputWidth;
+		let guessPosition = (inverse(exponential(parseInt(input.value))) / sliderMax) * inputWidth;
 
 		let boxWidth = Math.abs(answerPosition - guessPosition);
 		if (answerPosition > guessPosition) {
@@ -76,7 +76,7 @@
 		textbox.style.width = '200px';
 		guessbox.textContent = '';
 		currentTextInput = '';
-		input.value = sliderMax / 2; // Center
+		input.value = `${sliderMax / 2}`; // Center
 		moveBox();
 		textbox.textContent = 'Type to guess';
 		enableInput();
@@ -90,12 +90,12 @@
 
 	function moveBox() {
 		// width = slider length - thumb size
-		textbox.style.opacity = 1;
+		textbox.style.opacity = '1';
 		let width = input.offsetWidth - 200;
-		const movePercent = input.value / sliderMax;
+		const movePercent = parseInt(input.value) / sliderMax;
 		const color1 = [162, 199, 229];
 		const color2 = [162, 229, 184];
-		const [r, g, b] = (textbox.style.color = interpolateColor(color1, color2, movePercent));
+		const [r, g, b] = interpolateColor(color1, color2, movePercent);
 		textbox.style.color = `rgb(${r}, ${g}, ${b})`;
 		textbox.style.transform = `translate(${movePercent * width}px)`;
 	}
@@ -134,7 +134,7 @@
 			} else {
 				textbox.textContent = 'Type to guess';
 			}
-			input.value = inverse(parseInt(currentTextInput));
+			input.value = `${inverse(parseInt(currentTextInput))}`;
 			moveBox();
 		});
 	}
