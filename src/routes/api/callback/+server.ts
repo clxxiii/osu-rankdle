@@ -40,6 +40,10 @@ export const GET = (async ({ cookies, url }) => {
 	});
 	const token = await tokenReq.json();
 
+	if (tokenReq.status != 200) {
+		throw redirect(302, '/');
+	}
+
 	const userReq = await fetch(`${base_url}/me`, {
 		headers: {
 			Authorization: `${token.token_type} ${token.access_token}`
@@ -103,6 +107,40 @@ export const GET = (async ({ cookies, url }) => {
 			}
 		}
 	});
+
+	if (user.stats_id != session.stats_id) {
+		await prisma.guess.deleteMany({
+			where: {
+				stats_id: session.stats_id
+			}
+		});
+		await prisma.userDay.deleteMany({
+			where: {
+				stats_id: session.stats_id
+			}
+		});
+		await prisma.session.update({
+			where: {
+				id: session.id
+			},
+			data: {
+				stats: {
+					connect: {
+						id: user.stats_id
+					}
+				}
+			}
+		});
+		await prisma.stats.delete({
+			where: {
+				id: session.stats_id
+			},
+			include: {
+				guesses: true,
+				history: true
+			}
+		});
+	}
 
 	await prisma.session.update({
 		where: {
