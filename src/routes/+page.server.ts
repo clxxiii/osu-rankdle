@@ -4,6 +4,8 @@ import type { Video } from '@prisma/client';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ fetch, cookies }) => {
+	let video: Video | null;
+
 	const session = await prisma.session.findUnique({
 		where: {
 			id: cookies.get('session')
@@ -17,7 +19,6 @@ export const load = (async ({ fetch, cookies }) => {
 			}
 		}
 	});
-	let video: Video | null;
 
 	if (session) {
 		video = session.stats.current_video;

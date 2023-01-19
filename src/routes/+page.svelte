@@ -5,7 +5,6 @@
 	import LoginScreen from '$lib/components/LoginScreen.svelte';
 	import Next from '$lib/components/Next.svelte';
 	import Results from '$lib/components/Results.svelte';
-	import Menu from '$lib/components/Menu.svelte';
 	import Video from '$lib/components/Video.svelte';
 	import '../app.css';
 	export let data;
@@ -59,7 +58,6 @@
 	<LockIn {hpbar} bind:this={lockin} getValueFunction={clickFunction} />
 	<Next {video} {inputbar} {lockin} bind:this={next} />
 	<HpBar {next} {inputbar} {showResults} hp={data?.session?.stats?.hp} bind:this={hpbar} />
-	<Menu userData={data?.session?.stats?.user} />
 	{#if !data.session}
 		<LoginScreen {setVideo} {setHP} />
 	{/if}

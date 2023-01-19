@@ -60,8 +60,9 @@
 		<div class="head" bind:this={title}>
 			<i>Howdy, <span class="name">{userData.username}</span></i>
 		</div>
-		<a href="/faq">FAQ</a>
-		<a href="/submit">submit</a>
+    <a on:click={toggleMenu} href="/">HOME</a>
+    <a on:click={toggleMenu} href="/faq">FAQ</a>
+    <a on:click={toggleMenu} href="/submit">submit</a>
 		<a on:click={titlechange} href="/api/logout">logout</a>
 	</div>
 {/if}
@@ -76,7 +77,7 @@
 		opacity: 0;
 		border: 0;
 		pointer-events: none;
-		z-index: 0;
+		z-index: 10;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
