@@ -51,7 +51,7 @@ export const GET = (async ({ cookies, url }) => {
 	});
 	const userData = await userReq.json();
 
-	const user = await prisma.user.upsert({
+	let user = await prisma.user.upsert({
 		where: {
 			id: userData.id
 		},
@@ -107,6 +107,21 @@ export const GET = (async ({ cookies, url }) => {
 			}
 		}
 	});
+
+	if (!user.stats_id) {
+		user = await prisma.user.update({
+			where: {
+				id: user.id
+			},
+			data: {
+				stats: {
+					connect: {
+						id: session.stats_id
+					}
+				}
+			}
+		});
+	}
 
 	if (user.stats_id != session.stats_id) {
 		await prisma.guess.deleteMany({
