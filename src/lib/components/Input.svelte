@@ -91,7 +91,11 @@
 		// width = slider length - thumb size
 		textbox.style.opacity = 1;
 		let width = input.offsetWidth - 200;
-		let movePercent = input.value / sliderMax;
+		const movePercent = input.value / sliderMax;
+		const color1 = [162, 199, 229];
+		const color2 = [162, 229, 184];
+		const [r, g, b] = (textbox.style.color = interpolateColor(color1, color2, movePercent));
+		textbox.style.color = `rgb(${r}, ${g}, ${b})`;
 		textbox.style.transform = `translate(${movePercent * width}px)`;
 	}
 
@@ -132,6 +136,17 @@
 			input.value = inverse(parseInt(currentTextInput));
 			moveBox();
 		});
+	}
+	// https://graphicdesign.stackexchange.com/questions/83866/generating-a-series-of-colors-between-two-colors/83869
+	function interpolateColor(color1: number[], color2: number[], factor: number) {
+		if (arguments.length < 3) {
+			factor = 0.5;
+		}
+		var result = color1.slice();
+		for (var i = 0; i < 3; i++) {
+			result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
+		}
+		return result;
 	}
 </script>
 
@@ -185,11 +200,17 @@
 		background-color: rgb(22, 22, 22);
 		pointer-events: none;
 		border-radius: 5px;
+		overflow: hidden;
 		box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
 		max-width: 1006px;
 		width: 95vw;
-		height: 56px;
+		height: 53px;
 		z-index: 0;
+	}
+	.textbox {
+		font-family: SofiaSans;
+		font-size: 24px;
+		color: var(--lavender);
 	}
 	.slider .textbox,
 	.guessbox {
@@ -198,9 +219,9 @@
 		transition: 0.15s ease;
 		opacity: 0;
 		display: grid;
-		background-color: #3d3d3d;
-		border-radius: 5px;
-		border: solid 3px rgb(119, 119, 119);
+		background: linear-gradient(0deg, rgba(119, 119, 119, 0.5), transparent 75%);
+		/* border-radius: 5px; */
+		border-bottom: solid 3px rgb(119, 119, 119);
 		height: 50px;
 		text-align: center;
 		place-items: center;
