@@ -20,12 +20,44 @@ export const load = (async ({ fetch, cookies }) => {
 		}
 	});
 
-	if (session) {
-		video = session.stats.current_video;
-		if (!video) {
-			const videoReq = await fetch('/api/get_video');
-			video = await videoReq.json();
+	if (!session) {
+		const videoReq = await fetch('/api/get_video');
+		video = await videoReq.json();
+		return;
+	}
+
+	// Get day history and see if game needs to be reset:
+	const recentGame = await prisma.userDay.findUnique({
+		where: {
+			day_stats_id: {
+				day: getDay(),
+				stats_id: session?.stats_id
+			}
 		}
+	});
+
+	if (!recentGame) {
+		session.stats = await prisma.stats.update({
+			where: {
+				id: session.stats_id
+			},
+			data: {
+				hp: 2000,
+				played_today: false,
+				current_video: {
+					disconnect: true
+				},
+				history: {
+					create: {
+						day: getDay()
+					}
+				}
+			},
+			include: {
+				user: true,
+				current_video: true
+			}
+		});
 	}
 
 	const score = await prisma.guess.count({
@@ -34,6 +66,13 @@ export const load = (async ({ fetch, cookies }) => {
 			stats_id: session?.stats_id
 		}
 	});
+	if (!video) {
+		const videoReq = await fetch('/api/get_video');
+		video = await videoReq.json();
+
+		return { video, session, score };
+	}
+	video = session.stats.current_video;
 
 	return { video, session, score };
 }) satisfies PageServerLoad;

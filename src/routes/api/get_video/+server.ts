@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { prisma } from '$lib/prisma';
 
@@ -11,6 +11,9 @@ export const GET = (async ({ cookies, url }) => {
 			stats: true
 		}
 	});
+
+	if (!session) throw error(400, 'No session');
+
 	if (session.stats.current_video_id && !forceNew) {
 		const video = await prisma.video.findUnique({
 			where: {
@@ -23,7 +26,7 @@ export const GET = (async ({ cookies, url }) => {
 	const videos = await prisma.video.findMany({
 		where: {
 			NOT: {
-				watched_by: {
+				guesses_for: {
 					some: {
 						stats_id: session.stats_id
 					}
@@ -31,17 +34,20 @@ export const GET = (async ({ cookies, url }) => {
 			}
 		}
 	});
+	console.log(videos);
 	const rand = Math.floor(Math.random() * videos.length);
 	const video = videos[rand];
 
-	await prisma.stats.update({
-		where: {
-			id: session.stats_id
-		},
-		data: {
-			current_video_id: video.id
-		}
-	});
+	if (session.stats_id) {
+		await prisma.stats.update({
+			where: {
+				id: session.stats_id
+			},
+			data: {
+				current_video_id: video.id
+			}
+		});
+	}
 
 	delete video.shown_rank;
 	delete video.user_id;
