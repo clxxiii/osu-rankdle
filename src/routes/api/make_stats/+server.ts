@@ -6,8 +6,10 @@ export const GET = (async ({ cookies }) => {
 	const sessionId = cookies.get('session');
 	const dupeCheck = await prisma.stats.findFirst({
 		where: {
-			session: {
-				id: sessionId
+			sessions: {
+				every: {
+					id: sessionId
+				}
 			}
 		}
 	});
@@ -20,7 +22,7 @@ export const GET = (async ({ cookies }) => {
 			longest_streak: 0,
 			played_today: false,
 			streak: 0,
-			session: {
+			sessions: {
 				connectOrCreate: {
 					where: {
 						id: sessionId

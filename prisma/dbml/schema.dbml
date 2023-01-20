@@ -9,7 +9,6 @@ Table Video {
   user User [not null]
   user_id Int [not null]
   current_video_for Stats [not null]
-  watched_by VideoWatched [not null]
   guesses_for Guess [not null]
 }
 
@@ -37,7 +36,7 @@ Table OsuOauth {
 Table Session {
   id String [pk]
   stats Stats [not null]
-  stats_id String [unique, not null]
+  stats_id String [not null]
   state String [unique]
 }
 
@@ -49,8 +48,7 @@ Table Stats {
   played_today Boolean [not null]
   user User
   hp Int [not null, default: 2000]
-  session Session
-  watched VideoWatched [not null]
+  sessions Session [not null]
   current_video Video
   current_video_id String
   history UserDay [not null]
@@ -82,24 +80,13 @@ Table Guess {
   on_day_stats_id String [not null]
 }
 
-Table VideoWatched {
-  video Video [not null]
-  stats Stats [not null]
-  video_id String [not null]
-  stats_id String [not null]
-
-  indexes {
-    (video_id, stats_id) [pk]
-  }
-}
-
 Ref: Video.user_id > User.id
 
 Ref: User.stats_id - Stats.id
 
 Ref: OsuOauth.user_id - User.id
 
-Ref: Session.stats_id - Stats.id
+Ref: Session.stats_id > Stats.id
 
 Ref: Stats.current_video_id > Video.id
 
@@ -110,7 +97,3 @@ Ref: Guess.stats_id > Stats.id
 Ref: Guess.video_id > Video.id
 
 Ref: Guess.(day, on_day_stats_id) > UserDay.(day, stats_id)
-
-Ref: VideoWatched.video_id > Video.id
-
-Ref: VideoWatched.stats_id > Stats.id
