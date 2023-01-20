@@ -71,7 +71,7 @@ async function getUser(id: number, key: string) {
 	user = await prisma.user.create({
 		data: {
 			id,
-			country_code: userData[0].country_code,
+			country_code: userData[0].country,
 			username: userData[0].username,
 			rank: parseInt(userData[0].pp_rank)
 		}
