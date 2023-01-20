@@ -16,7 +16,7 @@ export const GET = (async ({ url }) => {
 		where: { youtube_id: youtubeId }
 	});
 
-	if (duplicateCheck) throw error(400, 'Video already exists');
+	if (duplicateCheck) throw error(200, 'Video already exists');
 
 	const userData = await getUser(userId, banchoAPIKey);
 
@@ -27,14 +27,14 @@ export const GET = (async ({ url }) => {
 		},
 		create: {
 			id: userId,
-			country_code: userData.country,
+			country_code: userData.country_code,
 			username: userData.username,
-			rank: parseInt(userData.pp_rank)
+			rank: parseInt(userData.rank)
 		},
 		update: {
 			country_code: userData.country,
 			username: userData.username,
-			rank: parseInt(userData.pp_rank),
+			rank: parseInt(userData.rank),
 			last_stats_update: new Date()
 		}
 	});
@@ -71,9 +71,9 @@ async function getUser(id: number, key: string) {
 	user = await prisma.user.create({
 		data: {
 			id,
-			country_code: userData.country_code,
-			username: userData.username,
-			rank: parseInt(userData.pp_rank)
+			country_code: userData[0].country_code,
+			username: userData[0].username,
+			rank: parseInt(userData[0].pp_rank)
 		}
 	});
 
