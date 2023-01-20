@@ -20,7 +20,6 @@ export const GET = (async ({ url }) => {
 
 	const userData = await getUser(userId, banchoAPIKey);
 
-	console.log(userData);
 	await prisma.user.upsert({
 		where: {
 			id: userId
