@@ -95,7 +95,9 @@
 </svelte:head>
 
 <div class="page">
-	<h1>osu! rankdle</h1>
+	<h1>
+		osu! rankdle <div class="beta">beta</div>
+	</h1>
 	<div class="score">Current Score: {currentScore}</div>
 	<Video bind:this={video} video_id={data?.video?.youtube_id} />
 	<Input bind:this={inputBar} />
@@ -116,6 +118,10 @@
 		color: var(--yellow);
 		margin: 0;
 		margin-top: 0.2em;
+		display: flex;
+		gap: 5px;
+		align-items: center;
+		justify-content: center;
 	}
 	.score {
 		margin-bottom: 0.75em;
@@ -126,5 +132,12 @@
 		align-items: center;
 		font-weight: 600;
 		justify-content: center;
+	}
+	.beta {
+		display: inline-block;
+		font-size: 0.75em;
+		color: #191919;
+		background-color: var(--yellow);
+		padding: 5px;
 	}
 </style>
