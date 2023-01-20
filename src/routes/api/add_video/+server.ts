@@ -16,7 +16,7 @@ export const GET = (async ({ url }) => {
 		where: { youtube_id: youtubeId }
 	});
 
-	if (duplicateCheck) throw error(200, 'Video already exists');
+	if (duplicateCheck) return new Response('Video Already Exists');
 
 	const userData = await getUser(userId, banchoAPIKey);
 
