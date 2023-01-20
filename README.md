@@ -17,6 +17,7 @@ To prevent frustration, every player will have minimum 3 tries per day. If on th
 # Development
 
 I wrote a [bash script](https://github.com/clxxiii/osu-rankdle/blob/main/setup.sh) to set up the dev environment for you:
+
 ```bash
 wget -O - https://raw.githubusercontent.com/clxxiii/osu-rankdle/main/setup.sh | sh
 ```
@@ -24,29 +25,40 @@ wget -O - https://raw.githubusercontent.com/clxxiii/osu-rankdle/main/setup.sh | 
 If you'd rather do it manually, here are the steps to set up the dev environment:
 
 ### 1. Clone the repo, cd into the directory
+
 ```bash
-git clone https://github.com/clxxiii/osu-rankdle.git 
+git clone https://github.com/clxxiii/osu-rankdle.git
 
 # Or if you'd like to use ssh instead:
 git clone git@github.com:clxxiii/osu-rankdle.git
 
 cd osu-rankdle
 ```
+
 ### 2. Install the dependencies
+
 ```bash
 npm install
 ```
+
 ### 3. Fill out the following variables in `.env`
+
 ```env
 DATABASE_URL="file:./dev.db" # If you'd like to change this, you can, this is the recommended db location.
+PUBLIC_OSU_CLIENT_ID= # Your osu! application client ID
+PUBLIC_OSU_CLIENT_SECRET="" # Your osu! application client secret
+BANCHO_API_KEY="" # Used exclusively for a terrible workaround for adding videos. This env var is being removed very soon.
 ```
+
 ### 3. Setup the prisma database
+
 ```bash
 npx prisma generate
 npx prisma migrate dev
 ```
+
 ### 4. Run the development server:
+
 ```bash
 npm run dev
 ```
-
