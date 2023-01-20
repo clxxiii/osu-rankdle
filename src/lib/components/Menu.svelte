@@ -80,7 +80,7 @@
 		</div>
 		<a href="/">HOME</a>
 		<a href="/faq">FAQ</a>
-		<a href="/submit">submit</a>
+		<a href="/api/submit_form_link">submit</a>
 		<a href="/api/logout">logout</a>
 	</div>
 {/if}
