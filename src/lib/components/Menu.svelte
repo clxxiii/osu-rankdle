@@ -87,7 +87,7 @@
 
 <style>
 	.dark {
-		position: absolute;
+		position: fixed;
 		inset: 50%;
 		background: rgba(0, 0, 0, 0.75);
 		transition: opacity 0.3s ease;
@@ -134,7 +134,7 @@
 		width: 100%;
 	}
 	.profile {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		right: 0;
 		color: white;

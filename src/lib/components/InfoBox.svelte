@@ -35,12 +35,12 @@
 
 <style>
 	.wrap {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		width: 100vw;
 		height: 100vh;
-		z-index: 2;
 		display: grid;
+		z-index: 2;
 		place-items: center;
 		transition: 0.3s ease;
 	}
@@ -55,8 +55,10 @@
 	}
 	.box {
 		position: relative;
-		width: 500px;
-		height: 400px;
+		width: 80vw;
+		height: 80vw;
+		max-width: 500px;
+		max-height: 400px;
 		background-color: #222222;
 		z-index: 2;
 		padding: 25px;
