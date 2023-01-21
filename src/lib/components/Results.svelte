@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getDay } from '$lib/constants';
 	import InfoBox from './InfoBox.svelte';
 	import Timer from './Timer.svelte';
 
@@ -7,6 +8,7 @@
 	export let longest_streak: number;
 	export let highest_score: number;
 	export let score: number;
+	export let stats_id: string;
 
 	export const show = () => {
 		box.show();
@@ -32,6 +34,7 @@
 		<div class="score">
 			Score <div class="num">{score}</div>
 		</div>
+		<a class="results" href="/results/{stats_id}/{getDay()}"><span> Share your results! </span></a>
 		<div class="timer">
 			<Timer />
 		</div>
@@ -67,6 +70,29 @@
 		width: 80%;
 		justify-content: space-around;
 		margin-bottom: 30px;
+	}
+	.results {
+		position: absolute;
+		background-color: #3d3d3d;
+		padding: 15px;
+		bottom: 100px;
+		transform: skew(-15deg);
+		color: white;
+		text-decoration: none;
+		transition: 0.2s ease;
+	}
+	.results span {
+		display: block;
+		width: 100%;
+		height: 100%;
+		transform: skew(15deg);
+		transition: 0.2s ease;
+	}
+	.results:hover {
+		transform: skew(0deg);
+	}
+	.results:hover span {
+		transform: skew(0deg);
 	}
 	.timer {
 		position: absolute;

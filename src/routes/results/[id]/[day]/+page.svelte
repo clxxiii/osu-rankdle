@@ -6,8 +6,25 @@
 	let username = data?.user?.username ?? data?.session?.stats?.user?.username ?? 'Someone';
 </script>
 
-<h1>{username}'s Day {data.day.day}</h1>
+<div class="results">
+	<h1><a href="../">{username}'s Day {data.day.day}</a></h1>
 
-{#each data.day.guesses as guess}
-	<Guess {...guess} />
-{/each}
+	{#each data.day.guesses as guess}
+		<Guess {...guess} />
+	{/each}
+</div>
+
+<style>
+	h1 {
+		color: var(--yellow);
+	}
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+	.results {
+		margin: 20px;
+		width: 70%;
+		max-width: 1000px;
+	}
+</style>

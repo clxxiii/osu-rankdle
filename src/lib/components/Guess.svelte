@@ -35,4 +35,7 @@
 	.num {
 		font-size: 24px;
 	}
+	a:hover {
+		background-color: #222222;
+	}
 </style>

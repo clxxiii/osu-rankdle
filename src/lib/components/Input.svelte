@@ -13,8 +13,12 @@
 	let penaltybox: HTMLDivElement;
 
 	let inputDisabled: boolean;
+	export let hideInputHead: boolean = false;
 
 	export const getValue = () => exponential(parseInt(input.value));
+	export const setValue = (num: number) => {
+		input.value = `${inverse(num)}`;
+	};
 	export const disableInput = () => {
 		inputDisabled = true;
 		input.style.pointerEvents = 'none';
@@ -32,10 +36,12 @@
 		// for calculating the width of the slider head.
 		let movePercent = inverse(exponential(parseInt(input.value))) / sliderMax;
 		let currentTransform = movePercent * inputWidth;
-		textbox.textContent = '';
-		textbox.style.transform = `translate(${currentTransform}px)`;
-		textbox.style.transition = '0.5s ease';
-		textbox.style.width = '0px';
+		if (!hideInputHead) {
+			textbox.textContent = '';
+			textbox.style.transform = `translate(${currentTransform}px)`;
+			textbox.style.transition = '0.5s ease';
+			textbox.style.width = '0px';
+		}
 		guessbox.style.opacity = '1';
 		guessbox.style.transform = `translate(${currentTransform - 100}px)`;
 		guessbox.textContent = '#' + exponential(parseInt(input.value)).toLocaleString();
@@ -90,14 +96,16 @@
 
 	function moveBox() {
 		// width = slider length - thumb size
-		textbox.style.opacity = '1';
 		let width = input.offsetWidth - 200;
 		const movePercent = parseInt(input.value) / sliderMax;
 		const color1 = [162, 199, 229];
 		const color2 = [162, 229, 184];
 		const [r, g, b] = interpolateColor(color1, color2, movePercent);
-		textbox.style.color = `rgb(${r}, ${g}, ${b})`;
-		textbox.style.transform = `translate(${movePercent * width}px)`;
+		if (!hideInputHead) {
+			textbox.style.opacity = '1';
+			textbox.style.color = `rgb(${r}, ${g}, ${b})`;
+			textbox.style.transform = `translate(${movePercent * width}px)`;
+		}
 	}
 
 	let currentTextInput = '';
@@ -162,7 +170,9 @@
 		max={sliderMax}
 	/>
 	<div class="body" />
-	<div class="textbox" bind:this={textbox}>Type to guess</div>
+	{#if !hideInputHead}
+		<div class="textbox" bind:this={textbox}>Type to guess</div>
+	{/if}
 	<div class="guessbox" bind:this={guessbox}>Type to guess</div>
 	<div class="answerline" bind:this={answerline}>
 		<div bind:this={answerlinetext} class="text" />
@@ -235,8 +245,8 @@
 		bottom: -5px;
 		opacity: 0;
 		transition: 0.5s ease;
-		background-color: none;
-		border: 0;
+		background: none;
+		border-bottom: 0;
 		height: 0;
 	}
 	.answerline {

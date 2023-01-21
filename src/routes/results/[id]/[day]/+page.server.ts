@@ -15,8 +15,6 @@ export const load = (async ({ params, cookies }) => {
 			id: stats_id
 		}
 	});
-	console.log(stats);
-	console.log(parseInt(params.day));
 	const day = await prisma.userDay.findUnique({
 		where: {
 			day_stats_id: {
