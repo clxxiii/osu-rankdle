@@ -32,14 +32,14 @@
 	};
 </script>
 
-<button on:click={clicked} bind:this={next}>Next</button>
+<button style="display: none" on:click={clicked} bind:this={next}>Next</button>
 
 <style>
 	button {
 		position: relative;
 		transition: 0.5s ease;
 		opacity: 0;
-		display: none;
+		display: flex;
 		width: 220px;
 		height: 50px;
 		background: #333333;
