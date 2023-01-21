@@ -35,7 +35,21 @@ export const GET = (async ({ cookies, url }) => {
 			removed: false
 		}
 	});
-	console.log(videos);
+
+	if (videos.length <= 0) {
+		await prisma.stats.update({
+			where: {
+				id: session.stats_id
+			},
+			data: {
+				current_video_id: 'this user has watched all videos'
+			}
+		});
+		throw error(
+			400,
+			'You have already watched all available videos! Congrats, you beat osu! rankdle!'
+		);
+	}
 	const rand = Math.floor(Math.random() * videos.length);
 	const video = videos[rand];
 

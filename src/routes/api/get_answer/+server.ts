@@ -16,7 +16,7 @@ export const GET = (async ({ fetch, url, cookies }) => {
 	});
 
 	if (session.stats.hp <= 0) {
-		throw error(400, 'You are at HP 0, you cannot guess again.');
+		throw error(403, 'You are at HP 0, you cannot guess again.');
 	}
 
 	const video = await prisma.video.findUnique({
@@ -43,20 +43,12 @@ export const GET = (async ({ fetch, url, cookies }) => {
 	const penalty = Math.round(Math.abs(normalAnswer - normalGuess) / 100);
 	const newHP = session.stats.hp - penalty <= 0 ? 0 : session.stats.hp - penalty;
 
-	const newVideoReq = await fetch('/api/get_video?new=true');
-	const newVideo = await newVideoReq.json();
-
 	const stats = await prisma.stats.update({
 		where: {
 			id: session.stats_id
 		},
 		data: {
 			hp: newHP,
-			current_video: {
-				connect: {
-					id: newVideo.id
-				}
-			},
 			history: {
 				connectOrCreate: {
 					where: {
@@ -101,6 +93,30 @@ export const GET = (async ({ fetch, url, cookies }) => {
 			video: {
 				connect: {
 					id: video.id
+				}
+			}
+		}
+	});
+
+	const newVideoReq = await fetch('/api/get_video?new=true');
+	const newVideo = await newVideoReq.json();
+
+	if (newVideo.message) {
+		return json({
+			answer: video.shown_rank,
+			guess: input,
+			penalty,
+			user
+		});
+	}
+	await prisma.stats.update({
+		where: {
+			id: stats.id
+		},
+		data: {
+			current_video: {
+				connect: {
+					id: newVideo.id
 				}
 			}
 		}
