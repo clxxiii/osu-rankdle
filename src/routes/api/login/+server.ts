@@ -6,7 +6,7 @@ import type { RequestHandler } from './$types';
 
 export const GET = (async ({ cookies, url }) => {
 	const sessionId = cookies.get('session');
-	let osuOauthURL = `https://osu.ppy.sh/oauth/authorize?client_id=${env.PUBLIC_OSU_CLIENT_ID}&redirect_uri=${url.origin}/api/callback&response_type=code&scope=identify`;
+	let osuOauthURL = `https://osu.ppy.sh/oauth/authorize?client_id=${env.PUBLIC_OSU_CLIENT_ID}&redirect_uri=${url.origin}/api/osu_callback&response_type=code&scope=identify`;
 	const state = randomInt(Math.pow(2, 16)).toString(16);
 
 	await prisma.session.upsert({

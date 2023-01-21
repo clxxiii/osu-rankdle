@@ -37,7 +37,7 @@ export const GET = (async ({ cookies, url }) => {
 		client_secret: env.OSU_CLIENT_SECRET,
 		code,
 		grant_type: 'authorization_code',
-		redirect_uri: `${url.origin}/api/callback`
+		redirect_uri: `${url.origin}/api/osu_callback`
 	};
 
 	const tokenReq = await fetch(auth_url, {
