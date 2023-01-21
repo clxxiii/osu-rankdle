@@ -31,9 +31,11 @@ export const GET = (async ({ cookies, url }) => {
 						stats_id: session.stats_id
 					}
 				}
-			}
+			},
+			removed: false
 		}
 	});
+	console.log(videos);
 	const rand = Math.floor(Math.random() * videos.length);
 	const video = videos[rand];
 
