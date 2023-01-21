@@ -1,5 +1,5 @@
 import type { RequestHandler } from './$types';
-import { json } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import { prisma } from '$lib/prisma';
 import { inverse } from '$lib/constants';
 import { getDay } from '$lib/constants';
@@ -14,6 +14,10 @@ export const GET = (async ({ fetch, url, cookies }) => {
 			stats: true
 		}
 	});
+
+	if (session.stats.hp <= 0) {
+		throw error(400, 'You are at HP 0, you cannot guess again.');
+	}
 
 	const video = await prisma.video.findUnique({
 		where: {

@@ -124,7 +124,6 @@ export const GET = (async ({ cookies, url }) => {
 	}
 
 	if (user.stats_id != session.stats_id) {
-		console.log(user.stats_id, session.stats_id);
 		await prisma.guess.deleteMany({
 			where: {
 				stats_id: session.stats_id

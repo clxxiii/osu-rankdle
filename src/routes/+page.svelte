@@ -79,6 +79,7 @@
 		} else {
 			let statReq = await fetch('/api/finalize_results');
 			let results = await statReq.json();
+			next.hide();
 			showResults(results);
 		}
 	};
@@ -86,6 +87,7 @@
 	onMount(() => {
 		if (data?.session?.stats?.hp <= 0) {
 			lockin.hide();
+			next.hide();
 		}
 	});
 </script>

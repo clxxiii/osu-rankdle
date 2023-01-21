@@ -14,7 +14,7 @@ export const GET = (async ({ cookies, url }) => {
 
 	if (!session) throw error(400, 'No session');
 
-	if (session.stats.current_video_id && !forceNew) {
+	if ((session.stats.current_video_id && !forceNew) || session.stats.hp <= 0) {
 		const video = await prisma.video.findUnique({
 			where: {
 				id: session.stats.current_video_id
