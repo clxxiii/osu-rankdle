@@ -22,6 +22,16 @@ export const GET = (async ({ cookies, url }) => {
 		throw error(403, 'Recieved state does not match expected state');
 	}
 
+	// Clear state after verifying.
+	await prisma.session.update({
+		where: {
+			id: session.id
+		},
+		data: {
+			state: ''
+		}
+	});
+
 	const tokenBody = {
 		client_id: pub.PUBLIC_OSU_CLIENT_ID,
 		client_secret: env.OSU_CLIENT_SECRET,
