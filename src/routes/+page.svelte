@@ -6,6 +6,7 @@
 	import Next from '$lib/components/Next.svelte';
 	import PlayedBy from '$lib/components/PlayedBy.svelte';
 	import Results from '$lib/components/Results.svelte';
+	import Socials from '$lib/components/Socials.svelte';
 	import Video from '$lib/components/Video.svelte';
 	import type { User } from '@prisma/client';
 	import { onMount } from 'svelte';
@@ -113,6 +114,7 @@
 		<Results {...resultData} stats_id={data.session.stats_id} bind:this={results} />
 	{/if}
 	<PlayedBy bind:this={playedBy} />
+	<Socials />
 </div>
 
 <style>
