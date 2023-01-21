@@ -24,6 +24,7 @@
 <style>
 	iframe,
 	.all {
+		width: 560px;
 		max-width: 90vw;
 		aspect-ratio: calc(16 / 9);
 	}

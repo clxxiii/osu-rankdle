@@ -174,16 +174,16 @@
 		display: flex;
 		align-items: center;
 	}
+	.flag {
+		margin-left: 5px;
+		width: 20px;
+		transition: all 0.5s ease;
+	}
 	.profile:hover {
 		transform: translateX(-15px);
 	}
 	.profile:hover .pic {
 		transform: scale(1.05);
-	}
-	.flag {
-		margin-left: 5px;
-		width: 20px;
-		transition: all 0.5s ease;
 	}
 	.profile:hover .top,
 	.profile:hover .bottom {
