@@ -102,6 +102,7 @@
 
 	let currentTextInput = '';
 	if (browser) {
+		document.addEventListener('resize', moveBox);
 		document.addEventListener('mousedown', () => (textbox.style.transition = '0s ease'));
 		document.addEventListener('mouseup', () => (textbox.style.transition = '0.15s ease'));
 		document.addEventListener('keydown', (ev) => {

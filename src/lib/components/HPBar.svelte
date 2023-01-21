@@ -46,7 +46,8 @@
 	.bar {
 		position: relative;
 		margin: 40px;
-		width: 500px;
+		width: 80vw;
+		max-width: 500px;
 		height: 50px;
 		z-index: 0;
 	}
@@ -71,7 +72,7 @@
 		position: absolute;
 		top: 2px;
 		left: 25px;
-		width: 500px;
+		width: 100%;
 		height: 35px;
 		background: rgb(66, 66, 66);
 		border-bottom-right-radius: 50px;
@@ -103,14 +104,14 @@
 		background-color: rgb(44, 44, 44);
 		position: absolute;
 		bottom: -7px;
-		left: 25px;
+		left: 7%;
 		height: 20px;
 		border-bottom-right-radius: 10px;
 		border-bottom-left-radius: 10px;
 		display: grid;
 		place-items: center;
 		font-size: 16px;
-		width: 17%;
+		width: 100px;
 	}
 	@keyframes hit {
 		0% {

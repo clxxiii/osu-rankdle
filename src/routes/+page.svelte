@@ -119,7 +119,7 @@
 	h1 {
 		color: var(--yellow);
 		margin: 0;
-		margin-top: 0.2em;
+		margin-top: 0.5em;
 		display: flex;
 		gap: 5px;
 		align-items: center;

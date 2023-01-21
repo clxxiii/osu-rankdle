@@ -192,4 +192,13 @@
 	.profile:hover .flag {
 		transform: translateX(5px);
 	}
+
+	@media screen and (max-width: 500px) {
+		.login-text {
+			display: none;
+		}
+		.profile:hover {
+			transform: translateX(0px);
+		}
+	}
 </style>
