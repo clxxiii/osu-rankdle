@@ -28,7 +28,7 @@ export const GET = (async ({ cookies, url }) => {
 			id: session.id
 		},
 		data: {
-			state: ''
+			state: null
 		}
 	});
 
