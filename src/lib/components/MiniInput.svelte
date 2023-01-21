@@ -13,8 +13,6 @@
 		let answerPosition = (inverse(answer) / sliderMax) * inputWidth;
 		let guessPosition = (inverse(input) / sliderMax) * inputWidth;
 
-		console.log({ answerPosition, guessPosition });
-
 		if (answerPosition > guessPosition) {
 			box.classList.remove('overguess');
 			box.style.left = `${answerPosition}px`;
