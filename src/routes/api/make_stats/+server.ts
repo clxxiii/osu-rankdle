@@ -7,7 +7,7 @@ export const GET = (async ({ cookies }) => {
 	const dupeCheck = await prisma.stats.findFirst({
 		where: {
 			sessions: {
-				every: {
+				some: {
 					id: sessionId
 				}
 			}
