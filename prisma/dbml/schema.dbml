@@ -10,6 +10,8 @@ Table Video {
   user_id Int [not null]
   current_video_for Stats [not null]
   guesses_for Guess [not null]
+  removed Boolean [not null, default: false]
+  reports Report [not null]
 }
 
 Table User {
@@ -22,6 +24,7 @@ Table User {
   stats Stats
   stats_id String [unique]
   oauth OsuOauth
+  admin Boolean [not null, default: false]
 }
 
 Table OsuOauth {
@@ -53,6 +56,7 @@ Table Stats {
   current_video_id String
   history UserDay [not null]
   guesses Guess [not null]
+  reports Report [not null]
 }
 
 Table UserDay {
@@ -80,6 +84,15 @@ Table Guess {
   on_day_stats_id String [not null]
 }
 
+Table Report {
+  id String [pk]
+  video Video [not null]
+  user Stats [not null]
+  reason String [not null]
+  video_id String [not null]
+  stats_id String [not null]
+}
+
 Ref: Video.user_id > User.id
 
 Ref: User.stats_id - Stats.id
@@ -97,3 +110,7 @@ Ref: Guess.stats_id > Stats.id
 Ref: Guess.video_id > Video.id
 
 Ref: Guess.(day, on_day_stats_id) > UserDay.(day, stats_id)
+
+Ref: Report.video_id > Video.id
+
+Ref: Report.stats_id > Stats.id

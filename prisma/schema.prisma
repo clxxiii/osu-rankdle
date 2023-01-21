@@ -15,13 +15,15 @@ datasource db {
 }
 
 model Video {
-  id                String  @id @default(uuid())
+  id                String   @id @default(uuid())
   youtube_id        String
   shown_rank        Int
-  user              User    @relation(fields: [user_id], references: [id])
+  user              User     @relation(fields: [user_id], references: [id])
   user_id           Int
   current_video_for Stats[]
   guesses_for       Guess[]
+  removed           Boolean  @default(false)
+  reports           Report[]
 }
 
 model User {
@@ -34,6 +36,7 @@ model User {
   stats             Stats?    @relation(fields: [stats_id], references: [id])
   stats_id          String?   @unique
   oauth             OsuOauth?
+  admin             Boolean   @default(false)
 }
 
 model OsuOauth {
@@ -67,6 +70,7 @@ model Stats {
   current_video_id String?
   history          UserDay[]
   guesses          Guess[]
+  reports          Report[]
 }
 
 model UserDay {
@@ -90,4 +94,13 @@ model Guess {
   stats_id        String
   on_day          UserDay @relation(fields: [day, on_day_stats_id], references: [day, stats_id])
   on_day_stats_id String
+}
+
+model Report {
+  id       String @id @default(uuid())
+  video    Video  @relation(fields: [video_id], references: [id])
+  user     Stats  @relation(fields: [stats_id], references: [id])
+  reason   String
+  video_id String
+  stats_id String
 }
