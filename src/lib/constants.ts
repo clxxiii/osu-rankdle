@@ -30,8 +30,8 @@ export const inverse = (x: number) => {
 */
 export const penalty = (guess: number, rank: number): number => {
 	const blue = 1 - Math.min(guess, rank) / Math.max(guess, rank);
-	const red = 1 / (1 + Math.max(0, Math.min(5 - Math.log10(guess), 5 - Math.log10(rank))));
-	const green = 1 / (1 + Math.max(0, Math.min(Math.log10(guess) - 5, Math.log10(rank)) - 5));
+	const red = 1 / (1 + Math.max(0, Math.min(4.5 - Math.log10(guess), 4.5 - Math.log10(rank))));
+	const green = 1 / (1 + Math.max(0, Math.min(Math.log10(guess) - 4.5, Math.log10(rank)) - 4.5));
 
 	return Math.round(red * blue * green * 1500);
 };
