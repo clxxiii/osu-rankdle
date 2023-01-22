@@ -20,6 +20,23 @@ export const inverse = (x: number) => {
 	return Math.pow(sub, 3) * Math.pow(sub, 1 / 3);
 };
 
+// const a = 1243.80809498;
+// const b = 1.00000369137;
+
+// export const exponential = (x: number): number => {
+// 	if (x == sliderMax) return sliderMax;
+
+// 	return Math.round(a * Math.pow(b, x) - a + 1);
+// };
+
+// export const inverse = (x: number): number => {
+// 	if (x == sliderMax) return sliderMax;
+
+// 	const sub1 = Math.log(x) / Math.log(b);
+// 	const sub2 = Math.log(a) / Math.log(b);
+// 	return sub1 / sub2;
+// };
+
 /*
   SUPER SPECIAL SHOUTOUT TIME
   
