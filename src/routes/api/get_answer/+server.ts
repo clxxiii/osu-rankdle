@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 import { error, json } from '@sveltejs/kit';
 import { prisma } from '$lib/prisma';
-import { inverse } from '$lib/constants';
+import { penalty as penaltyFormula } from '$lib/constants';
 import { getDay } from '$lib/constants';
 
 export const GET = (async ({ fetch, url, cookies }) => {
@@ -37,10 +37,7 @@ export const GET = (async ({ fetch, url, cookies }) => {
 		}
 	});
 
-	const normalGuess = inverse(input);
-	const normalAnswer = inverse(video.shown_rank);
-
-	const penalty = Math.round(Math.abs(normalAnswer - normalGuess) / 100);
+	const penalty = penaltyFormula(input, video.shown_rank);
 	const newHP = session.stats.hp - penalty <= 0 ? 0 : session.stats.hp - penalty;
 
 	const stats = await prisma.stats.update({
