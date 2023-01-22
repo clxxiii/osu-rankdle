@@ -21,6 +21,9 @@ export const GET = (async ({ cookies, url }) => {
 			}
 		});
 
+		delete video.shown_rank;
+		delete video.user_id;
+
 		return json(video);
 	}
 	const videos = await prisma.video.findMany({
