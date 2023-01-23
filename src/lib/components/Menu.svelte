@@ -79,7 +79,7 @@
 			<i>Howdy, <span class="name">{userData.username}</span></i>
 		</div>
 		<a href="/">HOME</a>
-		<a href="/faq">FAQ</a>
+		<a href="/videos">videos</a>
 		<a href="/api/submit_form_link">submit</a>
 		<a href="/api/logout">logout</a>
 	</div>
