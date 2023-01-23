@@ -74,6 +74,7 @@ Table Guess {
   id String [pk]
   stats Stats [not null]
   video Video [not null]
+  time DateTime [default: `now()`, not null]
   guess_num Int [not null]
   input Int [not null]
   penalty Int [not null]

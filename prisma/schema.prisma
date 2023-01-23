@@ -86,6 +86,7 @@ model Guess {
   id              String  @id @default(uuid())
   stats           Stats   @relation(fields: [stats_id], references: [id])
   video           Video   @relation(fields: [video_id], references: [id])
+  time            DateTime   @default(now())
   guess_num       Int
   input           Int
   penalty         Int
