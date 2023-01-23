@@ -17,7 +17,7 @@
 
 <style>
 	main {
-		min-height: calc(100vh - 40px);
+		min-height: calc(100vh - 61px);
 	}
 	footer {
 		position: relative;

@@ -120,7 +120,6 @@
 	h1 {
 		color: var(--yellow);
 		margin: 0;
-		margin-top: 0.5em;
 		display: flex;
 		gap: 5px;
 		align-items: center;
@@ -131,6 +130,7 @@
 	}
 	.page {
 		display: flex;
+		margin: 20px;
 		flex-direction: column;
 		align-items: center;
 		font-weight: 600;

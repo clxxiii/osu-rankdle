@@ -43,7 +43,7 @@
 		align-items: center;
 		flex-direction: column;
 		min-width: 100vw;
-		min-height: 100vh;
+		min-height: calc(100vh - 40px);
 		font-size: 24px;
 		font-weight: 700;
 	}
