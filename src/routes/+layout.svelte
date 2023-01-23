@@ -1,8 +1,26 @@
 <script>
-  import "../app.css"
+	import '../app.css';
 	import Menu from '$lib/components/Menu.svelte';
-  export let data;
+	import BottomLinks from '$lib/components/BottomLinks.svelte';
+	export let data;
 </script>
 
+<header>
 	<Menu userData={data?.session?.stats?.user} />
-<slot />
+</header>
+<main>
+	<slot />
+</main>
+<footer>
+	<BottomLinks />
+</footer>
+
+<style>
+	main {
+		min-height: calc(100vh - 40px);
+	}
+	footer {
+		position: relative;
+		height: 40px;
+	}
+</style>

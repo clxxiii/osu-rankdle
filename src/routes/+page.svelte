@@ -114,7 +114,6 @@
 		<Results {...resultData} stats_id={data.session.stats_id} bind:this={results} />
 	{/if}
 	<PlayedBy bind:this={playedBy} />
-	<Socials />
 </div>
 
 <style>
