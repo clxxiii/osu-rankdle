@@ -33,6 +33,9 @@ export const GET = (async ({ cookies, url }) => {
 					some: {
 						stats_id: session.stats_id
 					}
+				},
+				user: {
+					stats_id: session.stats_id
 				}
 			},
 			removed: false
