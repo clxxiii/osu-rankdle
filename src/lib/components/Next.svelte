@@ -2,6 +2,7 @@
 	import type Input from './Input.svelte';
 	import type LockIn from './LockIn.svelte';
 	import type PlayedBy from './PlayedBy.svelte';
+	import type Report from './Report.svelte';
 	import type Video from './Video.svelte';
 
 	let next: any;
@@ -9,6 +10,7 @@
 	export let lockin: LockIn;
 	export let video: Video;
 	export let playedBy: PlayedBy;
+	export let report: Report;
 
 	export const show = () => {
 		next.style.display = 'block';
@@ -24,6 +26,7 @@
 		inputbar.reset();
 		lockin.show();
 		playedBy.hide();
+		report.hide();
 		hide();
 
 		let newVideoReq = await fetch('/api/get_video');

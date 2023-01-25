@@ -5,6 +5,7 @@
 	import LoginScreen from '$lib/components/LoginScreen.svelte';
 	import Next from '$lib/components/Next.svelte';
 	import PlayedBy from '$lib/components/PlayedBy.svelte';
+	import Report from '$lib/components/Report.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import Video from '$lib/components/Video.svelte';
 	import type { User } from '@prisma/client';
@@ -82,6 +83,7 @@
 		await sleep(500);
 		playedBy.changeUser(result.user);
 		playedBy.show();
+		report.show();
 		if (hpBar.getHP() > 0) {
 			next.show();
 		} else {
@@ -110,9 +112,10 @@
 	</h1>
 	<div class="score">Current Score: {currentScore}</div>
 	<Video bind:this={video} video_id={data?.video?.youtube_id} />
+	<Report bind:this={report} />
 	<Input bind:this={inputBar} />
 	<LockIn endRoundFunction={endRound} bind:this={lockin} getValueFunction={clickFunction} />
-	<Next {playedBy} {video} inputbar={inputBar} {lockin} bind:this={next} />
+	<Next {report} {playedBy} {video} inputbar={inputBar} {lockin} bind:this={next} />
 	<HpBar hp={data?.session?.stats?.hp} bind:this={hpBar} />
 	{#if !data.session}
 		<LoginScreen {setVideo} {setHP} />
