@@ -6,20 +6,20 @@
 	import Next from '$lib/components/Next.svelte';
 	import PlayedBy from '$lib/components/PlayedBy.svelte';
 	import Results from '$lib/components/Results.svelte';
-	import Socials from '$lib/components/Socials.svelte';
 	import Video from '$lib/components/Video.svelte';
 	import type { User } from '@prisma/client';
 	import { onMount } from 'svelte';
 	import '../app.css';
+
 	export let data: any;
 
-	let inputBar: any;
-	let hpBar: any;
-	let next: any;
-	let lockin: any;
-	let video: any;
-	let results: any;
-	let playedBy: any;
+	let inputBar: Input;
+	let hpBar: HpBar;
+	let next: Next;
+	let lockin: LockIn;
+	let video: Video;
+	let playedBy: PlayedBy;
+	let report: Report;
 
 	let resultData = {
 		streak: data.session?.stats?.streak,
@@ -43,7 +43,14 @@
 		hpBar.set(n);
 	};
 
-	const showResults = (d: any) => {
+	type FinalResults = {
+		streak: number;
+		highest_score: number;
+		score: number;
+		longest_streak: number;
+	};
+
+	const showResults = (d: FinalResults) => {
 		resultData = {
 			streak: d.streak,
 			highest_score: d.highest_score,
@@ -111,7 +118,7 @@
 		<LoginScreen {setVideo} {setHP} />
 	{/if}
 	{#if data?.session?.stats?.played_today || resultsShown}
-		<Results {...resultData} stats_id={data.session.stats_id} bind:this={results} />
+		<Results {...resultData} stats_id={data.session.stats_id} />
 	{/if}
 	<PlayedBy bind:this={playedBy} />
 </div>
