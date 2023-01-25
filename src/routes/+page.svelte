@@ -19,7 +19,6 @@
 	let lockin: LockIn;
 	let video: Video;
 	let playedBy: PlayedBy;
-	let report: Report;
 
 	let resultData = {
 		streak: data.session?.stats?.streak,
