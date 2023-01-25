@@ -47,7 +47,6 @@ export const GET = (async ({ cookies, url }) => {
 			removed: false
 		}
 	});
-	console.log(videos.length);
 
 	if (videos.length <= 0) {
 		await prisma.stats.update({
