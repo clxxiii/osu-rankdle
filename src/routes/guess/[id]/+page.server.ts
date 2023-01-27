@@ -1,5 +1,5 @@
 import { prisma } from '$lib/prisma';
-import type { ServerLoad } from '@sveltejs/kit';
+import { error, type ServerLoad } from '@sveltejs/kit';
 
 export const load = (async ({ params }) => {
 	const guessId = params.id;
@@ -20,6 +20,7 @@ export const load = (async ({ params }) => {
 			}
 		}
 	});
+	if (!guess) throw error(404);
 
 	const result = {
 		answer: guess.video.shown_rank,
