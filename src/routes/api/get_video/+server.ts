@@ -29,14 +29,20 @@ export const GET = (async ({ cookies, url }) => {
 	const videos = await prisma.video.findMany({
 		where: {
 			NOT: {
-				guesses_for: {
-					some: {
-						stats_id: session.stats_id
+				OR: [
+					{
+						guesses_for: {
+							some: {
+								stats_id: session.stats_id
+							}
+						}
+					},
+					{
+						user: {
+							stats_id: session.stats_id
+						}
 					}
-				},
-				user: {
-					stats_id: session.stats_id
-				}
+				]
 			},
 			removed: false
 		}

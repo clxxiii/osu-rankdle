@@ -10,7 +10,12 @@ export const load = (async ({ cookies }) => {
 			stats: {
 				include: {
 					user: true,
-					current_video: true
+					current_video: {
+						select: {
+							youtube_id: true,
+							id: true
+						}
+					}
 				}
 			}
 		}

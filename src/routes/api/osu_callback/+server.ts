@@ -54,7 +54,7 @@ export const GET = (async ({ cookies, url }) => {
 		throw redirect(302, '/');
 	}
 
-	const userReq = await fetch(`${base_url}/me`, {
+	const userReq = await fetch(`${base_url}/me/osu`, {
 		headers: {
 			Authorization: `${token.token_type} ${token.access_token}`
 		}
