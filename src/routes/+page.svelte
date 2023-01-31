@@ -5,7 +5,7 @@
 	import LoginScreen from '$lib/components/LoginScreen.svelte';
 	import Next from '$lib/components/Next.svelte';
 	import PlayedBy from '$lib/components/PlayedBy.svelte';
-	import Report from '$lib/components/Report.svelte';
+	import Report from '$lib/components/ReportButton.svelte';
 	import Results from '$lib/components/Results.svelte';
 	import Video from '$lib/components/Video.svelte';
 	import type { User } from '@prisma/client';

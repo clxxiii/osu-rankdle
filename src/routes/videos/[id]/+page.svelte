@@ -1,8 +1,9 @@
 <script lang="ts">
 	import PlayedBy from '$lib/components/PlayedBy.svelte';
+	import Report from '$lib/components/Report.svelte';
 	import StatsSlider from '$lib/components/StatsSlider.svelte';
 	import Video from '$lib/components/Video.svelte';
-	import type { User, Video as VideoType } from '@prisma/client';
+	import type { Report as ReportType, User, Video as VideoType } from '@prisma/client';
 	import { onMount } from 'svelte';
 
 	let playedBy: PlayedBy;
@@ -20,7 +21,7 @@
 	type Data = {
 		guesses: Guess[];
 		video: VideoType & { user: User };
-		admin: boolean;
+    reports: [ ReportType & {user: {user: {username: string; id: number; rank: number}}} ]
 	};
 	export let data: Data;
 	onMount(() => playedBy.show());
@@ -29,10 +30,10 @@
 	let guessArray = data.guesses.map((x) => x.input);
 	console.log({ penaltyArray, guessArray });
 
-	let avgPenalty: number = 0;
-	let avgGuess: number = 0;
-	let mostWrong: number = 0;
-	let mostRight: number = 3_000_000; // A number larger than the largest possible guess, so the first guess will always be closer
+	let avgPenalty = 0;
+	let avgGuess = 0;
+	let mostWrong = 0;
+	let mostRight = 3_000_000; // A number larger than the largest possible guess, so the first guess will always be closer
 
 	for (const pen of penaltyArray) {
 		avgPenalty += pen;
@@ -69,6 +70,16 @@
 			<li>Most right guess: <span>{mostRight.toLocaleString()}</span></li>
 		</ul>
 	</div>
+  {#if data.reports?.length > 0}
+    <div class="reports">
+    <h3>Reports</h3>
+      <div class="list">
+        {#each data.reports as report}
+          <Report {report}/>
+        {/each}
+      </div>
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -83,6 +94,18 @@
 		justify-content: center;
 		align-content: center;
 	}
+  .reports {
+    width: 75%
+  }
+  .reports h3 {
+    border-bottom: 2px solid var(--yellow);
+    color: var(--yellow);
+    line-height: 1.7em;
+  }
+  .reports .list {
+    max-height: 400px;
+    overflow-y: scroll;
+  }
 	.user {
 		display: flex;
 		justify-content: center;

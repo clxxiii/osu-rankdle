@@ -9,6 +9,12 @@ export const load = (async () => {
 		const parsedArticle = parseArticle(article);
 		array.push(parsedArticle);
 	}
+	array.sort((a, b) => {
+		const aDate = new Date(a.date),
+			bDate = new Date(b.date);
+
+		return bDate.getTime() - aDate.getTime();
+	});
 	return { articles: array };
 }) satisfies ServerLoad;
 

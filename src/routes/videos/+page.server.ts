@@ -33,6 +33,7 @@ export const load = (async ({ cookies }) => {
 						stats_id: true
 					}
 				},
+				reports: true,
 				user: true
 			}
 		});
