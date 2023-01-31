@@ -1,26 +1,29 @@
 :root {
-    --pink: rgb(255, 153, 201);
-    --lavender: rgb(193, 189, 219);
-    --sky: rgb(162, 199, 229);
-    --green: rgb(162, 229, 184);
-    --teal: rgb(88, 252, 236);
-    --dark: #303a2b;
-    --red: rgb(235,93,93);
-    --light-red: rgb(230, 138, 138);
-    --yellow: rgb(255, 206, 44);
-    --background: rgb(27,27,27)
+	--pink: rgb(255, 153, 201);
+	--lavender: rgb(193, 189, 219);
+	--sky: rgb(162, 199, 229);
+	--green: rgb(162, 229, 184);
+	--teal: rgb(88, 252, 236);
+	--dark: #303a2b;
+	--red: rgb(235, 93, 93);
+	--light-red: rgb(230, 138, 138);
+	--yellow: rgb(255, 206, 44);
+	--background: rgb(27, 27, 27);
 }
 @font-face {
-    font-family: Quicksand;
-    src: url(./lib/fonts/Quicksand-VariableFont_wght.ttf);
+	font-family: Quicksand;
+	src: url(./lib/fonts/Quicksand-VariableFont_wght.ttf);
 }
 @font-face {
-    font-family: SofiaSans;
-    src: url(./lib/fonts/SofiaSansCondensed-VariableFont_wght.ttf);
+	font-family: SofiaSans;
+	src: url(./lib/fonts/SofiaSansCondensed-VariableFont_wght.ttf);
 }
 body {
-    margin: 0;
-    background-color: var(--background);
-    color: white;
-    font-family: 'Quicksand';
+	margin: 0;
+	background-color: var(--background);
+	color: white;
+	font-family: 'Quicksand';
+}
+a {
+	color: var(--yellow);
 }

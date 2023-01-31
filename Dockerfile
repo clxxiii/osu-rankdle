@@ -10,6 +10,8 @@ COPY . /app
 
 ENV PORT=3500
 
+ENV DATABASE_URL="file:./dev.db"
+
 RUN npx prisma generate
 
 RUN npx prisma migrate deploy
