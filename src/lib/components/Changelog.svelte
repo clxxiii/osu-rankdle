@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Converter } from 'showdown';
+	import pkg from 'showdown';
+  const { Converter } = pkg;
 	export let article: any;
 
   console.log(article.date);
