@@ -43,6 +43,9 @@
 			</div>
 		</div>
 	</div>
+  {#if video.reports.length >= 1}
+    <div class="report">{video.reports.length} Report{video.reports.length != 1 ? "s" : ""}!</div>
+  {/if}
 	<div class="guesses" bind:this={guessText}>{video.guesses_for.length}</div>
 	<div class="rank" bind:this={rankText}><i>#{video.shown_rank.toLocaleString()}</i></div>
 </a>
@@ -78,6 +81,13 @@
 		align-items: center;
 		gap: 5px;
 	}
+  .report {
+    position: absolute; 
+    bottom: 5px;
+    right: 5px;
+    color: var(--yellow);
+    font-weight: 900;
+  }
 	.login-text {
 		font-family: SofiaSans;
 		text-transform: uppercase;

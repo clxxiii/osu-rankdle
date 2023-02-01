@@ -1,5 +1,22 @@
 import { prisma } from '$lib/prisma';
+import type { Guess, Report, Video } from '@prisma/client';
 import { redirect, type ServerLoad } from '@sveltejs/kit';
+
+type Data = {
+	video: Video;
+	guesses: {
+		input: number;
+		penalty: number;
+		stats: {
+			user: {
+				id: number;
+				username: string;
+				rank: number;
+			};
+		};
+	}[];
+	reports?: Report[];
+};
 
 export const load = (async ({ params, cookies }) => {
 	const videoId = params.id;
@@ -56,6 +73,28 @@ export const load = (async ({ params, cookies }) => {
 			}
 		}
 	});
+	const data: Data = { video, guesses };
 
-	return { video, guesses, admin: loggedInUser.admin };
+	if (loggedInUser.admin) {
+		data.reports = await prisma.report.findMany({
+			where: {
+				video_id: videoId
+			},
+			include: {
+				user: {
+					select: {
+						user: {
+							select: {
+								username: true,
+								id: true,
+								rank: true
+							}
+						}
+					}
+				}
+			}
+		});
+	}
+
+	return data;
 }) satisfies ServerLoad;
