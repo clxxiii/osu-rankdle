@@ -36,6 +36,7 @@ model User {
   stats             Stats?    @relation(fields: [stats_id], references: [id])
   stats_id          String?   @unique
   oauth             OsuOauth?
+  removed_from_global_leaderboard Boolean @default(false)
   admin             Boolean   @default(false)
 }
 
