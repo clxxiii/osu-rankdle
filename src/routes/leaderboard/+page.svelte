@@ -30,9 +30,9 @@
 	<div class="header">
 		<b>#</b>
 		<b>Player</b>
-		<b>Total Score</b>
-		<b>Total Days Played</b>
-		<b>First day played</b>
+		<b>Guesses</b>
+		<b>Days</b>
+		<b>First day</b>
 	</div>
 	{#each data.lb as user, i}
 		<LeaderboardRow {user} index={i + 1 + 100 * (data.page - 1)} />

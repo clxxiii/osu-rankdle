@@ -101,4 +101,11 @@
 	.row:hover {
 		background-color: #222222;
 	}
+
+	@media screen and (max-width: 450px) {
+		.pic,
+		.bottom {
+			display: none;
+		}
+	}
 </style>
