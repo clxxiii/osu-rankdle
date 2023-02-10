@@ -48,7 +48,7 @@
 		display: grid;
 		height: 50px;
 		place-items: center;
-		grid-template-columns: 50px 25% 25% 25% 25% 25%;
+		grid-template-columns: 50px 150px 25% 25% 25%;
 		color: white;
 		text-decoration: none;
 	}
@@ -62,13 +62,16 @@
 		background: 0;
 		border: 0;
 		text-align: left;
+		width: 150px;
 		height: 50px;
 		display: flex;
 		align-items: center;
+		justify-content: left;
 		border-radius: 10px;
 		font-weight: bold;
 		text-decoration: none;
 		cursor: pointer;
+		margin-left: 20px;
 		z-index: 11;
 	}
 	.profile .pic {

@@ -29,7 +29,7 @@
 
 	<div class="header">
 		<b>#</b>
-		<b>Player</b>
+		<b style="width: 150px; margin-left: 20px">Player</b>
 		<b>Guesses</b>
 		<b>Days</b>
 		<b>First day</b>
@@ -53,6 +53,6 @@
 		display: grid;
 		place-items: center;
 		font-family: 'SofiaSans';
-		grid-template-columns: 50px 25% 25% 25% 25% 25%;
+		grid-template-columns: 50px 150px 25% 25% 25%;
 	}
 </style>

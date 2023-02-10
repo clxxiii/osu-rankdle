@@ -35,6 +35,13 @@ export const load = (async ({ url }) => {
 						not: undefined
 					}
 				}
+			},
+			guesses: {
+				some: {
+					id: {
+						not: undefined
+					}
+				}
 			}
 		},
 		orderBy: {
@@ -51,6 +58,13 @@ export const load = (async ({ url }) => {
 			user: {
 				username: {
 					not: undefined
+				}
+			},
+			guesses: {
+				some: {
+					id: {
+						not: undefined
+					}
 				}
 			},
 			history: {
