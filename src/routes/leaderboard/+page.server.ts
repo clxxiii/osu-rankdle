@@ -2,18 +2,30 @@ import { prisma } from '$lib/prisma';
 import type { PageServerLoad } from '../$types';
 
 export const load = (async ({ url }) => {
-	const page = url.searchParams.get('page') ?? 1;
+	const page = url.searchParams.has('page') ? parseInt(url.searchParams.get('page')) : 1;
 
 	const lb = await prisma.stats.findMany({
-		include: {
+		select: {
+			_count: true,
+			user: true,
 			history: {
-				include: {
-					_count: true
-				}
+				select: {
+					day: true
+				},
+				orderBy: {
+					day: 'asc'
+				},
+				take: 1
 			}
-		}
+		},
+		orderBy: {
+			guesses: {
+				_count: 'desc'
+			}
+		},
+		take: 100,
+		skip: 100 * (page - 1)
 	});
-	console.log(lb[0].history[0]._count);
 
-	return {};
+	return { lb, page };
 }) satisfies PageServerLoad;
