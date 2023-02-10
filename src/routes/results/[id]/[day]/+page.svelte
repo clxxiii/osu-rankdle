@@ -7,7 +7,7 @@
 </script>
 
 <div class="results">
-	<h1><a href="../">{username}'s Day {data.day.day}</a></h1>
+	<h1><a href="./">{username}'s Day {data.day.day}</a></h1>
 
 	{#each data.day.guesses as guess}
 		<Guess {...guess} />
