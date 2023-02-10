@@ -24,6 +24,7 @@ Table User {
   stats Stats
   stats_id String [unique]
   oauth OsuOauth
+  removed_from_global_leaderboard Boolean [not null, default: false]
   admin Boolean [not null, default: false]
 }
 
