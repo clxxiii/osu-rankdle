@@ -27,6 +27,10 @@
 	<h1>Leaderboard</h1>
 	<h3>Page {data.page}</h3>
 
+	<div class="leaderboard-picker">
+		<a href="/leaderboard">global</a>
+		<a style="color: white" href="/leaderboard/daily">daily</a>
+	</div>
 	<div class="header">
 		<b>#</b>
 		<b style="width: 150px; margin-left: 20px">Player</b>
@@ -54,5 +58,19 @@
 		place-items: center;
 		font-family: 'SofiaSans';
 		grid-template-columns: 50px 150px 25% 25% 25%;
+	}
+	.leaderboard-picker {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 50% 50%;
+		place-items: center;
+		font-family: 'SofiaSans';
+		font-weight: bold;
+		font-size: 24px;
+		text-transform: uppercase;
+	}
+	.leaderboard-picker a {
+		color: #3d3d3d;
+		text-decoration: none;
 	}
 </style>
