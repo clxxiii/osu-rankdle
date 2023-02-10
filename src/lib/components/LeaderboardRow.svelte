@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { User } from '@prisma/client';
 	import Hexagon from '$lib/icons/hex.svg';
+	import { getDay } from '$lib/constants';
 
 	type Data = {
 		user: User;
-		history: { day: number }[];
+		history: { day: number; _count: { guesses: number } }[];
 		_count: {
 			sessions: number;
 			history: number;
@@ -15,6 +16,14 @@
 
 	export let user: Data;
 	export let index: number;
+	export let daily: boolean = false;
+
+	let score = null;
+
+	if (daily) {
+		const day = user.history.find((x) => x.day == getDay());
+		score = day._count.guesses;
+	}
 
 	let flag = `https://osu.ppy.sh/images/flags/${user?.user?.country_code}.png`;
 </script>
@@ -38,7 +47,13 @@
 			</div>
 		{/if}
 	</div>
-	<div class="score">{user._count.guesses}</div>
+	<div class="score">
+		{#if score}
+			{score}
+		{:else}
+			{user._count.guesses}
+		{/if}
+	</div>
 	<div class="days">{user._count.history}</div>
 	<div class="first-day">{user?.history[0]?.day}</div>
 </a>
