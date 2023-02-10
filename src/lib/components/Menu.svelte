@@ -56,6 +56,7 @@
 		</div>
 		<a href="/api/login">login</a>
 		<a href="/">HOME</a>
+		<a href="/leaderboard">leaderboard</a>
 		<a href="/faq">FAQ</a>
 	</div>
 {:else}
@@ -80,6 +81,7 @@
 		</div>
 		<a href="/">HOME</a>
 		<a href="/videos">videos</a>
+		<a href="/leaderboard">leaderboard</a>
 		<a href="/api/submit_form_link">submit</a>
 		<a href="/api/logout">logout</a>
 	</div>
