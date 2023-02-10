@@ -10,54 +10,69 @@ export const load = (async ({ url }) => {
 		throw redirect(302, `/leaderboard?page=${page}`);
 	}
 
-	const lb = await prisma.stats.findMany({
-		select: {
-			_count: true,
-			user: true,
-			history: {
-				select: {
-					day: true,
-					_count: true
-				},
-				orderBy: {
-					day: 'asc'
-				}
-			}
-		},
-		where: {
-			user: {
-				username: {
-					not: undefined
+	const lb = (
+		await prisma.stats.findMany({
+			select: {
+				_count: true,
+				user: true,
+				history: {
+					select: {
+						day: true,
+						_count: true
+					},
+					orderBy: {
+						day: 'asc'
+					}
 				}
 			},
-			history: {
-				some: {
-					day: getDay()
-				}
-			},
-			guesses: {
-				some: {
-					id: {
+			where: {
+				user: {
+					username: {
 						not: undefined
 					}
-				}
-			},
-			AND: [
-				{
-					user: {
-						removed_from_global_leaderboard: false
+				},
+				history: {
+					some: {
+						day: getDay()
 					}
 				},
-				{
-					user: {
-						admin: false
+				guesses: {
+					some: {
+						id: {
+							not: undefined
+						}
 					}
-				}
-			]
-		},
-		take: 100,
-		skip: 100 * (page - 1)
-	});
+				},
+				AND: [
+					{
+						user: {
+							removed_from_global_leaderboard: false
+						}
+					},
+					{
+						user: {
+							admin: false
+						}
+					}
+				]
+			},
+			take: 100,
+			skip: 100 * (page - 1)
+		})
+	)
+		.sort((a, b) => {
+			const day = getDay();
+			let aDay = a.history.find((x) => x.day == day);
+			let bDay = b.history.find((x) => x.day == day);
+
+			return bDay._count.guesses - aDay._count.guesses;
+		})
+		.filter((x) => {
+			const day = getDay();
+			let dayObj = x.history.find((x) => x.day == day);
+
+			return dayObj._count.guesses != 0;
+		});
 
 	const rows = await prisma.stats.count({
 		where: {
@@ -91,14 +106,6 @@ export const load = (async ({ url }) => {
 				}
 			]
 		}
-	});
-
-	lb.sort((a, b) => {
-		const day = getDay();
-		let aDay = a.history.find((x) => x.day == day);
-		let bDay = b.history.find((x) => x.day == day);
-
-		return bDay._count.guesses - aDay._count.guesses;
 	});
 
 	const max = Math.floor(rows / 100) + 1;
