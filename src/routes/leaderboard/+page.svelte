@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LeaderboardRow from '$lib/components/LeaderboardRow.svelte';
+	import PageSwitcher from '$lib/components/PageSwitcher.svelte';
 	import type { User } from '@prisma/client';
 
 	type Leaderboard = {
@@ -16,6 +17,7 @@
 	type Data = {
 		lb: Leaderboard;
 		page: number;
+		max: number;
 	};
 
 	export let data: Data;
@@ -23,6 +25,7 @@
 
 <div class="leaderboard">
 	<h1>Leaderboard</h1>
+	<h3>Page {data.page}</h3>
 
 	<div class="header">
 		<b>#</b>
@@ -34,10 +37,13 @@
 	{#each data.lb as user, i}
 		<LeaderboardRow {user} index={i + 1 + 100 * (data.page - 1)} />
 	{/each}
+	<PageSwitcher max={data.max} i={data.page} url={'/leaderboard'} />
 </div>
 
 <style>
 	.leaderboard {
+		width: 70%;
+		max-width: 1000px;
 		margin: 20px;
 	}
 	h1 {
@@ -45,10 +51,8 @@
 	}
 	.header {
 		display: grid;
-		width: 70%;
 		place-items: center;
 		font-family: 'SofiaSans';
-		max-width: 1000px;
 		grid-template-columns: 50px 25% 25% 25% 25% 25%;
 	}
 </style>

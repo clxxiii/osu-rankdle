@@ -40,14 +40,12 @@
 	</div>
 	<div class="score">{user._count.guesses}</div>
 	<div class="days">{user._count.history}</div>
-	<div class="first-day">{user.history[0].day}</div>
+	<div class="first-day">{user?.history[0]?.day}</div>
 </a>
 
 <style>
 	.row {
 		display: grid;
-		width: 70%;
-		max-width: 1000px;
 		height: 50px;
 		place-items: center;
 		grid-template-columns: 50px 25% 25% 25% 25% 25%;
