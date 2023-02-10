@@ -42,7 +42,19 @@ export const load = (async ({ url }) => {
 						not: undefined
 					}
 				}
-			}
+			},
+			AND: [
+				{
+					user: {
+						removed_from_global_leaderboard: false
+					}
+				},
+				{
+					user: {
+						admin: false
+					}
+				}
+			]
 		},
 		orderBy: {
 			guesses: {
@@ -73,7 +85,19 @@ export const load = (async ({ url }) => {
 						not: undefined
 					}
 				}
-			}
+			},
+			AND: [
+				{
+					user: {
+						removed_from_global_leaderboard: false
+					}
+				},
+				{
+					user: {
+						admin: false
+					}
+				}
+			]
 		}
 	});
 
