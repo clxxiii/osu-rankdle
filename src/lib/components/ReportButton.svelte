@@ -3,8 +3,10 @@
 
 	let el: HTMLDivElement;
 	let text: HTMLDivElement;
-  let otherText: HTMLInputElement;
-  let buttons: HTMLDivElement;
+	let otherText: HTMLInputElement;
+	let buttons: HTMLDivElement;
+
+	let reported = false;
 
 	const expand = () => {
 		el.style.width = '300px';
@@ -19,34 +21,34 @@
 		el.style.backgroundColor = 'var(--red)';
 		el.style.cursor = 'pointer';
 		other = false;
-    otherText.style.display = "none";
-    buttons.style.display = "block";
+		otherText.style.display = 'none';
+		buttons.style.display = 'block';
 	};
 
 	const report = async (msg: MouseEvent | KeyboardEvent) => {
 		if (msg instanceof MouseEvent || msg.key == 'Enter') {
-      const message = msg.target.textContent == "" ? otherText.value : msg.target.textContent;
-      console.log(message);
+			const message = msg.target.textContent == '' ? otherText.value : msg.target.textContent;
 			await fetch(`/api/report?reason=${message}`, {
 				method: 'POST'
 			});
-			el.textContent = '✓';
+			reported = true;
 		}
 	};
 
 	let other = false;
-  const enableOther = () => {
-    other = true;
-    otherText.style.display = "block";
-    buttons.style.display = "none";
-    otherText.focus();
-  }
+	const enableOther = () => {
+		other = true;
+		otherText.style.display = 'block';
+		buttons.style.display = 'none';
+		otherText.focus();
+	};
 
 	export const hide = () => {
 		el.style.display = 'none';
 	};
 
 	export const show = () => {
+		reported = false;
 		el.style.display = 'block';
 	};
 
@@ -63,15 +65,28 @@
 </script>
 
 <div bind:this={el} class="report">
-	<div class="text" bind:this={text}>Report Video</div>
-  <div class="buttons" bind:this={buttons}>
-
-		<button class="option" on:click={report}>This replay does not fairly reflect their rank</button>
-		<button class="option" on:click={report}>This replay reveals the username/rank</button>
-		<button class="option" on:click={report}>I cannot watch this replay, it was unavailable.</button>
-		<button class="option" on:click={enableOther}>Other</button>
-  </div>
-    <input type="text" bind:this={otherText} placeholder="Press enter to submit" class="option textbox" on:keydown={report} />
+	{#if !reported}
+		<div class="text" bind:this={text}>Report Video</div>
+		<div class="buttons" bind:this={buttons}>
+			<button class="option" on:click={report}
+				>This replay does not fairly reflect their rank</button
+			>
+			<button class="option" on:click={report}>This replay reveals the username/rank</button>
+			<button class="option" on:click={report}
+				>I cannot watch this replay, it was unavailable.</button
+			>
+			<button class="option" on:click={enableOther}>Other</button>
+		</div>
+		<input
+			type="text"
+			bind:this={otherText}
+			placeholder="Press enter to submit"
+			class="option textbox"
+			on:keydown={report}
+		/>
+	{:else}
+		<div class="check">✓</div>
+	{/if}
 </div>
 
 <style>
@@ -86,6 +101,12 @@
 		cursor: default;
 		text-align: center;
 		overflow: hidden;
+	}
+	.check {
+		width: 100%;
+		height: 100%;
+		display: grid;
+		place-items: center;
 	}
 	.report .text {
 		margin-bottom: 5px;
@@ -110,11 +131,11 @@
 		height: calc(100% - 30px);
 		background: none;
 	}
-  .report .textbox {
-    display: none;
-    color: white;
-    background-color: #303030;
-    border: 0;
-    outline: none;
-  }
+	.report .textbox {
+		display: none;
+		color: white;
+		background-color: #303030;
+		border: 0;
+		outline: none;
+	}
 </style>
