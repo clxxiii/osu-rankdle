@@ -1,7 +1,9 @@
 import { prisma } from '$lib/prisma';
 import type { ServerLoad } from '@sveltejs/kit';
 
-export const load = (async ({ cookies }) => {
+export const load = (async ({ cookies, url }) => {
+	const page = url.searchParams.get('page') ? parseInt(url.searchParams.get('page')) : 1;
+
 	const sessionId = cookies.get('session');
 	const session = await prisma.session.findUnique({
 		where: {
@@ -35,9 +37,11 @@ export const load = (async ({ cookies }) => {
 				},
 				reports: true,
 				user: true
-			}
+			},
+			take: 30,
+			skip: 30 * (page - 1)
 		});
-		return { videos, user: 'admin' };
+		return { videos, user: 'admin', page };
 	}
 
 	const videos = await prisma.video.findMany({
@@ -56,8 +60,10 @@ export const load = (async ({ cookies }) => {
 				}
 			},
 			user: true
-		}
+		},
+		take: 30,
+		skip: 30 & (page - 1)
 	});
 
-	return { videos, user: 'default' };
+	return { videos, user: 'default', page };
 }) satisfies ServerLoad;

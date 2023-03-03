@@ -1,5 +1,6 @@
 <script lang="ts">
 	import VideoInList from '$lib/components/VideoInList.svelte';
+	import PageSwitcher from '$lib/components/PageSwitcher.svelte';
 
 	export let data: any;
 	console.log(data);
@@ -19,6 +20,7 @@
 			</div>
 		{/if}
 	</div>
+	<PageSwitcher i={data.page} url={'/videos'} max={data.max ?? 0} />
 </div>
 
 <style>
