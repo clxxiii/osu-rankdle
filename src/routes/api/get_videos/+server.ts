@@ -9,10 +9,15 @@ export const GET = (async ({ url }) => {
 	if (env.BANCHO_API_KEY != banchoAPIKey) throw error(403);
 
 	const videos = await prisma.video.findMany({
+		where: {
+			id: {
+				not: 'this user has watched all videos'
+			}
+		},
 		select: {
-			id: true
+			youtube_id: true
 		}
 	});
 
-	return json(videos.map((x) => x.id));
+	return json(videos.map((x) => x.youtube_id));
 }) satisfies RequestHandler;
