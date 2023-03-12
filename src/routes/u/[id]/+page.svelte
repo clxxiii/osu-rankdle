@@ -11,6 +11,7 @@
 		};
 		days: UserDay[] & { _count: { guesses: number } }[];
 		guesses: {
+			id: string;
 			penalty: number;
 			input: number;
 			video: {
@@ -69,7 +70,7 @@
 			<h2>Best Guesses</h2>
 			<hr />
 			{#each data.guesses.slice(0, 3) as guess}
-				<div class="guess">
+				<a class="guess" href="/guess/{guess.id}">
 					<img
 						src="https://i3.ytimg.com/vi/{guess.video.youtube_id}/maxresdefault.jpg"
 						alt="thumbnail"
@@ -78,7 +79,7 @@
 					<MiniInput input={guess.input} answer={guess.video.shown_rank} />
 					<div class="input">#{guess.input.toLocaleString()}</div>
 					<div class="answer">#{guess.video.shown_rank.toLocaleString()}</div>
-				</div>
+				</a>
 			{/each}
 		</div>
 	</div>
@@ -145,6 +146,10 @@
 		font-weight: 900;
 		line-height: 0.75;
 	}
+	a {
+		text-decoration: none;
+		color: white;
+	}
 	a.day {
 		transform: skew(-15deg);
 		display: flex;
@@ -154,8 +159,6 @@
 		width: 95%;
 		align-items: center;
 		justify-content: space-between;
-		text-decoration: none;
-		color: white;
 		background-color: #222222;
 		height: 50px;
 	}
@@ -170,7 +173,7 @@
 		transform: skew(15deg);
 	}
 
-	a:hover {
+	a.day:hover {
 		width: calc(95% - 18px);
 	}
 	@media screen and (max-width: 1000px) {
@@ -180,13 +183,6 @@
 		.columns {
 			display: flex;
 			flex-direction: column-reverse;
-		}
-	}
-	@media screen and (max-width: 700px) {
-		.wrap {
-			scale: 0.5;
-			width: 200%;
-			overflow: visible;
 		}
 	}
 </style>

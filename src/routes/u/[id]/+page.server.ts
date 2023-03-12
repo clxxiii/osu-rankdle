@@ -22,6 +22,7 @@ export const load = (async ({ params }) => {
 			stats_id: stats.id
 		},
 		select: {
+			id: true,
 			penalty: true,
 			input: true,
 			video: {
