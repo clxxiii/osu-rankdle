@@ -48,7 +48,7 @@
 	</h1>
 	{#if data.user}
 		<div class="score">
-			Guess by: <a href="https://osu.ppy.sh/u/{data.user.id}">{data.user.username}</a>
+			Guess by: <a href="/u/{data.user.id}">{data.user.username}</a>
 		</div>
 	{/if}
 	<Video bind:this={video} video_id={data.video_id} />
