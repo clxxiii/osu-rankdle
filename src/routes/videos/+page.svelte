@@ -3,7 +3,6 @@
 	import PageSwitcher from '$lib/components/PageSwitcher.svelte';
 
 	export let data: any;
-	console.log(data);
 </script>
 
 <div class="page">
