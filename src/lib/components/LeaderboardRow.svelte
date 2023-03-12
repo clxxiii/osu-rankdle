@@ -28,7 +28,7 @@
 	let flag = `https://osu.ppy.sh/images/flags/${user?.user?.country_code}.png`;
 </script>
 
-<a class="row" href="/results/{user?.user?.stats_id}">
+<a class="row" href="/u/{user?.user?.id}">
 	<div class="index">{index}</div>
 	<div class="profile">
 		{#if user.user}
