@@ -87,7 +87,6 @@
 		text-decoration: none;
 		cursor: pointer;
 		margin-left: 20px;
-		z-index: 11;
 	}
 	.profile .pic {
 		width: 45px;

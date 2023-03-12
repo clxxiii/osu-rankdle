@@ -17,7 +17,7 @@ export const load = (async ({ params }) => {
 		}
 	});
 
-	const guesses = await prisma.guess.findMany({
+	let guesses = await prisma.guess.findMany({
 		where: {
 			stats_id: stats.id
 		},
@@ -37,7 +37,7 @@ export const load = (async ({ params }) => {
 		}
 	});
 
-	const days = await prisma.userDay.findMany({
+	let days = await prisma.userDay.findMany({
 		where: {
 			stats_id: stats.id
 		},
@@ -53,6 +53,10 @@ export const load = (async ({ params }) => {
 		best: stats.highest_score,
 		total: guesses.length
 	};
+
+	guesses = guesses.slice(0, 3);
+
+	days = days.filter((x) => x._count.guesses > 0);
 
 	return { user, score, days, guesses };
 }) satisfies ServerLoad;

@@ -69,7 +69,7 @@
 		<div class="best-guess">
 			<h2>Best Guesses</h2>
 			<hr />
-			{#each data.guesses.slice(0, 3) as guess}
+			{#each data.guesses as guess}
 				<a class="guess" href="/guess/{guess.id}">
 					<img
 						src="https://i3.ytimg.com/vi/{guess.video.youtube_id}/maxresdefault.jpg"
@@ -183,6 +183,11 @@
 		.columns {
 			display: flex;
 			flex-direction: column-reverse;
+		}
+	}
+	@media screen and (max-width: 800px) {
+		.stat .number {
+			font-size: 64px;
 		}
 	}
 </style>
