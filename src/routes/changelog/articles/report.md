@@ -1,6 +1,7 @@
 ---
 date: 2023-01-31
 title: Report Button
+version: v0.4.0
 ---
 
 **The Long requested report button has been added!**

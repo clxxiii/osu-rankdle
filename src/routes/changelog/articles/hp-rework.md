@@ -1,6 +1,7 @@
 ---
 date: 2023-01-23
 title: HP Rework, videos, more!
+version: v0.3.0
 ---
 
 Firstly, thank you all so much for such a successful launch. I didn't think this would get so popular so fast!
