@@ -1,11 +1,18 @@
 import type { ServerLoad } from '@sveltejs/kit';
-import { readdirSync, readFileSync } from 'fs';
+import changelogs from "./changelogs.json";
 
-export const load = (async () => {
-	const articles = readdirSync('./src/routes/changelog/articles');
-	const array = [];
-	for (const articleName of articles) {
-		const article = readFileSync(`./src/routes/changelog/articles/${articleName}`).toString();
+type ParsedArticle = {
+	data: string,
+	date?: string,
+	version?: string,
+	title?: string
+}
+
+export const load = (async ({ fetch }) => {
+	const array: ParsedArticle[] = [];
+	for (const articlename of changelogs) {
+		const articleReq = await fetch(`/articles/${articlename}`)
+		const article = await articleReq.text();
 		const parsedArticle = parseArticle(article);
 		array.push(parsedArticle);
 	}
@@ -18,7 +25,7 @@ export const load = (async () => {
 	return { articles: array };
 }) satisfies ServerLoad;
 
-function parseArticle(article: string) {
+function parseArticle(article: string): ParsedArticle {
 	const lines = article.split('\r\n');
 
 	const data = {};

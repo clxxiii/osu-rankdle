@@ -26,6 +26,6 @@ Firstly, thank you all so much for such a successful launch. I didn't think this
 A new update has been added to completely overhaul how HP works.
 Special shoutout to [Cytusine](https://osu.ppy.sh/users/11557554) for getting this to work. so perfectly!
 
-There's a brand new formula in use! If you'd like to see the math behind it, check out the [paper]("/hp-doc.pdf") written by Cytusine, or this [desmos](https://www.desmos.com/calculator/0m6hi85ofu)
+There's a brand new formula in use! If you'd like to see the math behind it, check out the [paper](/hp-doc.pdf) written by Cytusine, or this [desmos](https://www.desmos.com/calculator/0m6hi85ofu)
 
 It should feel a lot better now, and it's also no longer possible to lose on the first guess, and **very difficult** to lose on the 2nd try.
