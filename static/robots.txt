@@ -1,3 +1,4 @@
 User-agent: *
+Disallow: /
 Disallow: /api/get_video
 Disallow: /api/get_answer
