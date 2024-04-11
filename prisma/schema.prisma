@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 generator dbml {
@@ -27,17 +28,17 @@ model Video {
 }
 
 model User {
-  id                Int       @id
-  username          String
-  country_code      String
-  rank              Int
-  last_stats_update DateTime  @default(now())
-  videos            Video[]
-  stats             Stats?    @relation(fields: [stats_id], references: [id])
-  stats_id          String?   @unique
-  oauth             OsuOauth?
-  removed_from_global_leaderboard Boolean @default(false)
-  admin             Boolean   @default(false)
+  id                              Int       @id
+  username                        String
+  country_code                    String
+  rank                            Int
+  last_stats_update               DateTime  @default(now())
+  videos                          Video[]
+  stats                           Stats?    @relation(fields: [stats_id], references: [id])
+  stats_id                        String?   @unique
+  oauth                           OsuOauth?
+  removed_from_global_leaderboard Boolean   @default(false)
+  admin                           Boolean   @default(false)
 }
 
 model OsuOauth {
@@ -84,17 +85,17 @@ model UserDay {
 }
 
 model Guess {
-  id              String  @id @default(uuid())
-  stats           Stats   @relation(fields: [stats_id], references: [id])
-  video           Video   @relation(fields: [video_id], references: [id])
-  time            DateTime   @default(now())
+  id              String   @id @default(uuid())
+  stats           Stats    @relation(fields: [stats_id], references: [id])
+  video           Video    @relation(fields: [video_id], references: [id])
+  time            DateTime @default(now())
   guess_num       Int
   input           Int
   penalty         Int
   day             Int
   video_id        String
   stats_id        String
-  on_day          UserDay @relation(fields: [day, on_day_stats_id], references: [day, stats_id])
+  on_day          UserDay  @relation(fields: [day, on_day_stats_id], references: [day, stats_id])
   on_day_stats_id String
 }
 
