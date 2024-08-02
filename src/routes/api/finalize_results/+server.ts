@@ -2,6 +2,7 @@ import { prisma } from '$lib/prisma';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { getDay } from '$lib/constants';
+import { logger } from '$lib/logger';
 
 export const GET = (async ({ cookies }) => {
 	const sessionId = cookies.get('session');
@@ -73,5 +74,7 @@ export const GET = (async ({ cookies }) => {
 			}
 		}
 	});
+
+	logger.info(`${stats.id} `, { ...stats, score: day.guesses.length })
 	return json({ ...stats, score: day.guesses.length });
 }) satisfies RequestHandler;
