@@ -1,6 +1,7 @@
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { prisma } from '$lib/prisma';
+import { logger } from '$lib/logger';
 
 export const GET = (async ({ cookies, url }) => {
 	const sessionId = cookies.get('session');
@@ -78,6 +79,8 @@ export const GET = (async ({ cookies, url }) => {
 
 	delete video.shown_rank;
 	delete video.user_id;
+
+	logger.info(`New video for ${session.stats_id}`, { video })
 
 	return json({ ...video, stats_id: session.stats_id });
 }) satisfies RequestHandler;

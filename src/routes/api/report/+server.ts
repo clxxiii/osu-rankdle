@@ -2,6 +2,7 @@ import { getDay } from '$lib/constants';
 import { prisma } from '$lib/prisma';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '../$types';
+import { logger } from '$lib/logger';
 
 export const POST = (async ({ url, cookies }) => {
 	const sessionId = cookies.get('session');
@@ -21,7 +22,7 @@ export const POST = (async ({ url, cookies }) => {
 		}
 	});
 
-	console.log({ lastGuess, reason });
+	logger.info(`Report submitted on ${lastGuess.video_id} by ${lastGuess.stats_id}`, { lastGuess, reason });
 
 	const report = await prisma.report.create({
 		data: {

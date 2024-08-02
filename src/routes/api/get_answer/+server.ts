@@ -3,6 +3,7 @@ import { error, json } from '@sveltejs/kit';
 import { prisma } from '$lib/prisma';
 import { penalty as penaltyFormula } from '$lib/constants';
 import { getDay } from '$lib/constants';
+import { logger } from '$lib/logger';
 
 export const GET = (async ({ fetch, url, cookies }) => {
 	const day = getDay();
@@ -118,6 +119,8 @@ export const GET = (async ({ fetch, url, cookies }) => {
 			}
 		}
 	});
+
+	logger.info(`[${video.id}] New guess by ${session.stats_id}: (guessed: ${input}, real: ${video.shown_rank} [-${penalty}])`, { video, penalty, guess: input, user })
 
 	return json({
 		answer: video.shown_rank,

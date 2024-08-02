@@ -30,6 +30,8 @@
   "type": "module",
   "dependencies": {
     "@libsql/client": "^0.6.0",
+    "@logtail/node": "^0.4.21",
+    "@logtail/winston": "^0.4.23",
     "@prisma/adapter-libsql": "^5.12.1",
     "@prisma/client": "^5.8.1",
     "@sveltejs/adapter-node": "^1.3.1",
@@ -38,6 +40,7 @@
     "prisma": "^5.8.1",
     "prisma-dbml-generator": "^0.10.0",
     "showdown": "^2.1.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "winston": "^3.13.1"
   }
 }
